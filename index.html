@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b3d2e">
+<title>Craque do Saber</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+:root{
+  --campo:#0b3d2e;
+  --cor:#15803d; --cor2:#22c55e;
+  --tinta:#0f172a; --papel:#ffffff; --suave:#f1f5f9;
+  --certo:#16a34a; --errado:#dc2626; --ouro:#f59e0b;
+  --r:18px; --toque:60px;
+  --sat:env(safe-area-inset-top); --sab:env(safe-area-inset-bottom);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;height:100%}
+body{
+  font-family:"Trebuchet MS","Verdana",system-ui,-apple-system,sans-serif;
+  background:#0b3d2e; color:var(--tinta);
+  overflow-x:hidden; overscroll-behavior:none;
+  -webkit-user-select:none; user-select:none;
+}
+#app{min-height:100%;display:flex;flex-direction:column;
+  padding:var(--sat) 0 var(--sab);}
+.tela{display:none;flex:1;flex-direction:column;padding:16px;gap:14px;
+  max-width:560px;margin:0 auto;width:100%}
+.tela.on{display:flex;animation:entra .28s ease both}
+@keyframes entra{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ---------- cabeçalho ---------- */
+.marca{display:flex;align-items:center;gap:12px;justify-content:center;margin-top:6px}
+.marca h1{font-size:clamp(26px,7vw,36px);margin:0;color:#fff;letter-spacing:.5px;
+  text-shadow:0 3px 0 rgba(0,0,0,.35)}
+.sub{color:#bbf7d0;text-align:center;margin:-6px 0 4px;font-size:15px}
+
+/* ---------- botões ---------- */
+button{font-family:inherit;font-size:17px;border:0;cursor:pointer}
+.btn{min-height:var(--toque);border-radius:var(--r);padding:14px 18px;
+  background:#fff;color:var(--tinta);font-weight:bold;
+  box-shadow:0 4px 0 rgba(0,0,0,.25);transition:transform .08s, box-shadow .08s}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.25)}
+.btn.principal{background:var(--ouro);color:#3b2600}
+.btn.fantasma{background:rgba(255,255,255,.14);color:#fff;box-shadow:none;
+  border:2px solid rgba(255,255,255,.45)}
+.linha-btns{display:flex;gap:10px;flex-wrap:wrap}
+.linha-btns .btn{flex:1;min-width:120px;white-space:nowrap;font-size:16px;padding:14px 10px}
+
+/* ---------- cartões de arena ---------- */
+.grade{display:grid;gap:12px}
+.arena{display:flex;align-items:center;gap:14px;text-align:left;width:100%;
+  min-height:86px;border-radius:var(--r);padding:12px 14px;color:#fff;font-weight:bold;
+  box-shadow:0 5px 0 rgba(0,0,0,.3);border:0}
+.arena:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.3)}
+.arena .bola{width:54px;height:54px;flex:0 0 54px}
+.arena .txt{flex:1}
+.arena .nome{font-size:19px;display:block}
+.arena .esp{font-size:13px;opacity:.9;font-weight:normal;display:block}
+.arena.trancada{filter:grayscale(.65);opacity:.75}
+.medidor{height:9px;border-radius:9px;background:rgba(0,0,0,.28);margin-top:7px;overflow:hidden}
+.medidor i{display:block;height:100%;background:#fde047;border-radius:9px;width:0;
+  transition:width .5s ease}
+.pct{font-size:12px;font-weight:normal;opacity:.95}
+
+/* ---------- campo / cena ---------- */
+.cena{position:relative;height:150px;border-radius:var(--r);overflow:hidden;
+  background:linear-gradient(#1a6b4f,#0b3d2e);flex:0 0 150px}
+.cena svg{position:absolute;inset:0;width:100%;height:100%}
+#bola{transition:none}
+.torcida{position:absolute;inset:0;pointer-events:none}
+.confete{position:absolute;width:9px;height:14px;opacity:0;border-radius:2px}
+
+/* ---------- placar ---------- */
+.placar{display:flex;gap:8px;align-items:center;color:#fff;font-weight:bold;font-size:15px}
+.placar .chip{background:rgba(0,0,0,.35);border-radius:999px;padding:7px 13px;
+  display:flex;align-items:center;gap:6px}
+.barra{flex:1;height:12px;background:rgba(0,0,0,.35);border-radius:9px;overflow:hidden}
+.barra i{display:block;height:100%;width:0;background:#fde047;transition:width .35s}
+
+/* ---------- pergunta ---------- */
+.cartao{background:var(--papel);border-radius:var(--r);padding:16px;
+  box-shadow:0 6px 18px rgba(0,0,0,.28)}
+.enunciado{font-size:clamp(19px,5vw,23px);line-height:1.35;margin:0;font-weight:bold}
+.cabecalho-q{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.etiqueta{font-size:12px;font-weight:bold;color:#475569;text-transform:uppercase;letter-spacing:.6px}
+.som{width:46px;height:46px;min-height:46px;border-radius:50%;background:var(--suave);
+  display:grid;place-items:center;flex:0 0 46px;padding:0}
+.opcoes{display:grid;gap:11px;margin-top:14px}
+.op{min-height:var(--toque);border-radius:var(--r);background:var(--suave);
+  color:var(--tinta);text-align:left;padding:14px 16px;font-size:18px;font-weight:bold;
+  display:flex;align-items:center;gap:12px;line-height:1.25;
+  box-shadow:0 4px 0 rgba(0,0,0,.14);transition:transform .08s,box-shadow .08s}
+.op:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.14)}
+.op .cam{width:32px;height:32px;flex:0 0 32px;border-radius:50%;background:#fff;
+  display:grid;place-items:center;font-size:15px;color:#334155;box-shadow:inset 0 0 0 2px #cbd5e1}
+.op.certa{background:#dcfce7;box-shadow:0 0 0 3px var(--certo) inset}
+.op.errada{background:#fee2e2;box-shadow:0 0 0 3px var(--errado) inset}
+.op[disabled]{opacity:.95}
+.resposta{margin-top:12px;border-radius:14px;padding:12px 14px;font-size:16px;line-height:1.35;display:none}
+.resposta.on{display:block;animation:entra .2s ease both}
+.resposta.bom{background:#dcfce7;color:#14532d}
+.resposta.ruim{background:#fee2e2;color:#7f1d1d}
+.resposta b{display:block;margin-bottom:3px;font-size:17px}
+
+/* ---------- fim de partida ---------- */
+#tela-fim{justify-content:center;gap:12px}
+.medalha{width:116px;height:116px;margin:0 auto;display:block}
+.fim h2{color:#fff;text-align:center;margin:4px 0;font-size:27px}
+.fim p{color:#d1fae5;text-align:center;margin:0}
+.lista{background:rgba(255,255,255,.12);border-radius:var(--r);padding:12px 14px;color:#fff}
+.lista h3{margin:0 0 8px;font-size:15px;color:#fde047;text-transform:uppercase;letter-spacing:.6px}
+.lista ul{margin:0;padding-left:20px;font-size:15px;line-height:1.5}
+
+.acoes-jogo{position:sticky;bottom:0;padding:10px 0 6px;margin-top:auto;
+  background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.35) 45%)}
+.sair{width:46px;height:46px;min-height:46px;padding:0;border-radius:50%;
+  background:rgba(0,0,0,.35);color:#fff;font-size:24px;line-height:1;flex:0 0 46px;
+  box-shadow:none;display:grid;place-items:center}
+.selo{position:fixed;left:50%;top:72px;transform:translate(-50%,-50%) scale(.6);
+  background:#fde047;color:#3b2600;font-weight:bold;font-size:20px;padding:14px 22px;
+  border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.45);opacity:0;pointer-events:none;
+  z-index:50;text-align:center;max-width:82vw}
+.selo.on{animation:selo 2s ease both}
+@keyframes selo{0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}
+ 15%{opacity:1;transform:translate(-50%,-50%) scale(1.07)}
+ 25%{transform:translate(-50%,-50%) scale(1)}
+ 80%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+ 100%{opacity:0;transform:translate(-50%,-70%) scale(.95)}}
+.ouvir{display:flex;align-items:center;gap:8px;background:var(--suave);border-radius:999px;
+  padding:9px 15px;min-height:46px;color:#334155;font-weight:bold;font-size:15px;
+  box-shadow:0 3px 0 rgba(0,0,0,.12)}
+.chip.seq{background:#f59e0b;color:#3b2600}
+.rodape{color:#86efac;font-size:12px;text-align:center;padding:4px 0 8px}
+.aviso{color:#fff;background:rgba(0,0,0,.3);border-radius:14px;padding:12px;font-size:15px;text-align:center}
+.brilho{animation:brilho .6s ease}
+@keyframes brilho{0%,100%{transform:scale(1)}40%{transform:scale(1.14)}}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ====== INÍCIO ====== -->
+  <section id="tela-inicio" class="tela on">
+    <div class="marca">
+      <svg viewBox="0 0 100 100" width="52" height="52" aria-hidden="true">
+        <circle cx="50" cy="50" r="46" fill="#fff" stroke="#0f172a" stroke-width="4"/>
+        <path d="M50 22 66 34 60 54 40 54 34 34Z" fill="#0f172a"/>
+        <path d="M50 22V8M66 34l13-9M60 54l12 14M40 54L28 68M34 34l-13-9" stroke="#0f172a" stroke-width="4" fill="none"/>
+      </svg>
+      <h1>Craque do Saber</h1>
+    </div>
+    <p class="sub" id="ola">Escolha sua arena e mostre que você é craque!</p>
+    <div id="cx-nome" class="cartao" style="display:none">
+      <p style="margin:0 0 10px;font-weight:bold;font-size:18px">Qual é o seu nome, craque?</p>
+      <input id="in-nome" type="text" maxlength="14" autocomplete="off" placeholder="Digite aqui"
+        style="width:100%;min-height:52px;border-radius:14px;border:2px solid #cbd5e1;
+        padding:10px 14px;font-size:18px;font-family:inherit;margin-bottom:10px">
+      <button class="btn principal" id="btn-nome" style="width:100%">Entrar em campo</button>
+    </div>
+    <div id="arenas" class="grade"></div>
+    <div class="linha-btns">
+      <button class="btn fantasma" id="btn-treino">Treino do dia</button>
+      <button class="btn fantasma" id="btn-som">Som: ligado</button>
+    </div>
+    <p class="rodape"><span id="tot-partidas">0</span> partidas jogadas · <span id="tot-dom">0</span> de <span id="tot-per">0</span> conteúdos dominados<br>Progresso salvo neste aparelho</p>
+  </section>
+
+  <!-- ====== CAMPEONATOS ====== -->
+  <section id="tela-arena" class="tela">
+    <div class="marca"><h1 id="arena-nome">Arena</h1></div>
+    <p class="sub" id="arena-sub">Escolha o campeonato</p>
+    <div id="campeonatos" class="grade"></div>
+    <button class="btn fantasma" id="btn-voltar-inicio">Voltar</button>
+  </section>
+
+  <!-- ====== JOGO ====== -->
+  <section id="tela-jogo" class="tela">
+    <div class="placar">
+      <span class="chip" id="chip-pontos">0</span>
+      <div class="barra"><i id="barra-jogo"></i></div>
+      <span class="chip" id="chip-jogada">1/8</span>
+      <button class="btn sair" id="btn-sair" aria-label="Sair da partida">&times;</button>
+    </div>
+    <div class="cena" id="cena"></div>
+    <div class="cartao">
+      <div class="cabecalho-q">
+        <span class="etiqueta" id="etiqueta-q">Jogada</span>
+        <button class="btn ouvir" id="btn-ouvir" aria-label="Ouvir a pergunta em voz alta">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#334155" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 8a5 5 0 0 1 0 8"/></svg>
+          Ouvir
+        </button>
+      </div>
+      <p class="enunciado" id="enunciado">…</p>
+      <div class="opcoes" id="opcoes"></div>
+      <div class="resposta" id="resposta"></div>
+    </div>
+    <div class="acoes-jogo">
+      <button class="btn principal" id="btn-continuar" style="display:none;width:100%">Continuar</button>
+    </div>
+  </section>
+
+  <!-- ====== FIM ====== -->
+  <section id="tela-fim" class="tela fim">
+    <svg class="medalha" id="medalha" viewBox="0 0 100 100" aria-hidden="true"></svg>
+    <h2 id="fim-titulo">Fim de jogo!</h2>
+    <p id="fim-linha">…</p>
+    <div class="lista" id="fim-treinar" style="display:none">
+      <h3>Volta na próxima partida</h3>
+      <ul id="fim-lista"></ul>
+    </div>
+    <div class="lista">
+      <h3>Seu aprendizado</h3>
+      <div class="medidor"><i id="fim-medidor"></i></div>
+      <p style="margin:8px 0 0;font-size:15px" id="fim-dominio"></p>
+    </div>
+    <div class="linha-btns">
+      <button class="btn principal" id="btn-denovo">Jogar de novo</button>
+      <button class="btn fantasma" id="btn-fim-inicio">Escolher arena</button>
+    </div>
+  </section>
+
+  <div class="selo" id="selo" role="status" aria-live="polite"></div>
+</div>
+
+<script src="perguntas.js"></script>
+<script>
+(function(){
+"use strict";
+
+/* ====================== estado salvo ====================== */
+var CHAVE = "craque-do-saber:v1";
+var estado = carregar();
+
+function carregar(){
+  var base = { q:{}, som:true, partidas:0, nome:"" };
+  try{
+    var s = localStorage.getItem(CHAVE);
+    if(s){ var o = JSON.parse(s); if(o && typeof o === "object"){
+      base.q = o.q || {}; base.som = o.som !== false; base.partidas = o.partidas || 0;
+      base.nome = o.nome || ""; } }
+  }catch(e){}
+  return base;
+}
+function salvar(){ try{ localStorage.setItem(CHAVE, JSON.stringify(estado)); }catch(e){} }
+function ficha(id){
+  if(!estado.q[id]) estado.q[id] = { caixa:1, seq:0, acertos:0, erros:0, visto:0, prox:0 };
+  return estado.q[id];
+}
+var ALVO = 3; // acertos seguidos para considerar o conteúdo assimilado
+function dominada(id){ return ficha(id).seq >= ALVO; }
+function forca(id){ return Math.min(ALVO, ficha(id).seq); }        // 0..3
+function dominio(lista){                                           // 0..100, cresce a cada acerto
+  if(!lista.length) return 0;
+  var soma = 0;
+  lista.forEach(function(q){ soma += forca(q.id); });
+  return Math.round(soma * 100 / (lista.length * ALVO));
+}
+
+/* ====================== banco ====================== */
+var BANCO = window.BANCO || { materias: [] };
+var todasPerguntas = [];
+BANCO.materias.forEach(function(m){
+  m.campeonatos.forEach(function(c){
+    c.materia = m; c.perguntas.forEach(function(q){ q.camp = c; todasPerguntas.push(q); });
+  });
+});
+function perguntasDe(alvo){
+  if(alvo.tipo === "camp") return alvo.camp.perguntas.slice();
+  if(alvo.tipo === "materia"){ var r=[]; alvo.materia.campeonatos.forEach(function(c){ r=r.concat(c.perguntas); }); return r; }
+  return todasPerguntas.slice();
+}
+
+/* ====================== som ====================== */
+var ctx = null;
+function audio(){ if(!ctx){ try{ ctx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} } return ctx; }
+function toca(notas){
+  if(!estado.som) return; var a = audio(); if(!a) return;
+  if(a.state === "suspended") a.resume();
+  var t = a.currentTime;
+  notas.forEach(function(n){
+    var o = a.createOscillator(), g = a.createGain();
+    o.type = n.t || "sine"; o.frequency.value = n.f;
+    g.gain.setValueAtTime(0.0001, t + n.a);
+    g.gain.exponentialRampToValueAtTime(n.v || .22, t + n.a + .02);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + n.a + n.d);
+    o.connect(g); g.connect(a.destination); o.start(t + n.a); o.stop(t + n.a + n.d + .03);
+  });
+}
+var somGol   = [{f:523,a:0,d:.13},{f:659,a:.11,d:.13},{f:784,a:.22,d:.26},{f:1047,a:.34,d:.34}];
+var somErro  = [{f:220,a:0,d:.2,t:"triangle"},{f:165,a:.16,d:.3,t:"triangle"}];
+var somApito = [{f:1800,a:0,d:.1,t:"square",v:.1},{f:2100,a:.1,d:.16,t:"square",v:.1}];
+function vibra(ms){ try{ if(navigator.vibrate) navigator.vibrate(ms); }catch(e){} }
+
+/* ====================== fala ====================== */
+function falar(txt){
+  try{
+    if(!("speechSynthesis" in window)) return;
+    speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(txt);
+    u.lang = "pt-BR"; u.rate = .95; u.pitch = 1.05;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+/* ====================== cenas por esporte ====================== */
+var CENAS = {
+  futebol: {
+    fundo:'<rect width="100%" height="100%" fill="url(#g)"/>'+
+      '<path d="M0 118 H320" stroke="rgba(255,255,255,.45)" stroke-width="2"/>'+
+      '<circle cx="160" cy="118" r="26" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="2"/>'+
+      '<rect x="96" y="26" width="128" height="62" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="3"/>'+
+      '<path d="M96 26 L106 16 H214 L224 26" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.55)" stroke-width="2"/>',
+    guarda:'<g id="guarda"><rect x="150" y="44" width="20" height="30" rx="7" fill="#fbbf24"/>'+
+      '<circle cx="160" cy="38" r="9" fill="#f8d9b5"/>'+
+      '<rect x="136" y="47" width="14" height="7" rx="3.5" fill="#fbbf24"/>'+
+      '<rect x="170" y="47" width="14" height="7" rx="3.5" fill="#fbbf24"/></g>',
+    bola:'<g id="bola"><circle cx="160" cy="124" r="13" fill="#fff" stroke="#0f172a" stroke-width="2.5"/>'+
+      '<path d="M160 115 l7 5 -2.7 8.4h-8.6L153 120z" fill="#0f172a"/></g>',
+    origem:{x:160,y:124}, alvo:{x:160,y:58}, verbo:"GOL!", nome:"pênalti"
+  },
+  basquete: {
+    fundo:'<rect width="100%" height="100%" fill="url(#g)"/>'+
+      '<rect x="112" y="14" width="96" height="58" rx="4" fill="rgba(255,255,255,.14)" stroke="rgba(255,255,255,.75)" stroke-width="3"/>'+
+      '<rect x="140" y="38" width="40" height="28" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="3"/>'+
+      '<path d="M138 72 h44 l-7 20 h-30z" fill="none" stroke="#fff" stroke-width="2.5"/>'+
+      '<path d="M40 138 a120 60 0 0 0 240 0" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2"/>',
+    guarda:'<g id="guarda"></g>',
+    bola:'<g id="bola"><circle cx="160" cy="124" r="13" fill="#f97316" stroke="#7c2d12" stroke-width="2.5"/>'+
+      '<path d="M147 124h26M160 111v26M150 115c7 6 7 12 0 18M170 115c-7 6-7 12 0 18" stroke="#7c2d12" stroke-width="2" fill="none"/></g>',
+    origem:{x:160,y:124}, alvo:{x:160,y:70}, verbo:"CESTA!", nome:"arremesso"
+  },
+  "vôlei": {
+    fundo:'<rect width="100%" height="100%" fill="url(#g)"/>'+
+      '<path d="M20 128 H300" stroke="rgba(255,255,255,.45)" stroke-width="2"/>'+
+      '<path d="M160 24 V128" stroke="rgba(255,255,255,.8)" stroke-width="3"/>'+
+      '<rect x="70" y="30" width="180" height="34" fill="rgba(255,255,255,.14)" stroke="rgba(255,255,255,.7)" stroke-width="2"/>'+
+      '<path d="M70 30v34M100 30v34M130 30v34M190 30v34M220 30v34M250 30v34" stroke="rgba(255,255,255,.45)" stroke-width="1.5"/>',
+    guarda:'<g id="guarda"></g>',
+    bola:'<g id="bola"><circle cx="160" cy="124" r="13" fill="#fff" stroke="#0369a1" stroke-width="2.5"/>'+
+      '<path d="M149 118c9 3 15 10 17 19M171 118c-9 3-15 10-17 19M150 130c7-5 15-6 21-3" stroke="#0369a1" stroke-width="2" fill="none"/></g>',
+    origem:{x:160,y:124}, alvo:{x:160,y:46}, verbo:"PONTO!", nome:"saque"
+  },
+  queimada: {
+    fundo:'<rect width="100%" height="100%" fill="url(#g)"/>'+
+      '<rect x="24" y="24" width="272" height="106" rx="6" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="3"/>'+
+      '<path d="M160 24V130" stroke="rgba(255,255,255,.5)" stroke-width="2" stroke-dasharray="7 7"/>'+
+      '<g><rect x="222" y="48" width="18" height="30" rx="8" fill="#fca5a5"/><circle cx="231" cy="41" r="9" fill="#f8d9b5"/></g>',
+    guarda:'<g id="guarda"></g>',
+    bola:'<g id="bola"><circle cx="90" cy="112" r="13" fill="#fde047" stroke="#a16207" stroke-width="2.5"/>'+
+      '<path d="M80 108c7 4 13 4 20 0M82 118c7 3 13 3 18 0" stroke="#a16207" stroke-width="2" fill="none"/></g>',
+    origem:{x:90,y:112}, alvo:{x:231,y:58}, verbo:"QUEIMOU!", nome:"arremesso"
+  }
+};
+function montaCena(esporte, cor, cor2){
+  var c = CENAS[esporte] || CENAS.futebol;
+  var el = document.getElementById("cena");
+  el.innerHTML =
+   '<svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid slice">'+
+     '<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1">'+
+       '<stop offset="0" stop-color="'+cor2+'"/><stop offset="1" stop-color="'+cor+'"/>'+
+     '</linearGradient></defs>'+
+     c.fundo + c.guarda + c.bola +
+   '</svg><div class="torcida" id="torcida"></div>';
+  return c;
+}
+function animaAcerto(cena){
+  var bola = document.getElementById("bola");
+  if(bola){
+    var o = cena.origem || {x:160,y:124};
+    var dx = cena.alvo.x - o.x, dy = cena.alvo.y - o.y;
+    bola.style.transition = "transform .55s cubic-bezier(.2,.9,.3,1)";
+    bola.style.transform = "translate("+dx+"px,"+dy+"px) scale(.82) rotate(300deg)";
+  }
+  var g = document.getElementById("guarda");
+  if(g){ g.style.transition="transform .4s ease"; g.style.transform="translate(-34px,6px) rotate(-18deg)"; }
+  confete();
+}
+function animaErro(cena){
+  var bola = document.getElementById("bola");
+  if(bola){
+    bola.style.transition = "transform .5s ease";
+    bola.style.transform = "translate(-46px,-24px) rotate(-120deg)";
+  }
+  var g = document.getElementById("guarda");
+  if(g){ g.style.transition="transform .3s ease"; g.style.transform="translate(-10px,-6px) scale(1.08)"; }
+}
+function confete(){
+  var t = document.getElementById("torcida"); if(!t) return;
+  var cores = ["#fde047","#f97316","#22d3ee","#f472b6","#a3e635"];
+  for(var i=0;i<18;i++){
+    (function(i){
+      var d = document.createElement("i");
+      d.className = "confete";
+      d.style.background = cores[i % cores.length];
+      d.style.left = (8 + Math.random()*84) + "%";
+      d.style.top = "-8%";
+      t.appendChild(d);
+      var dur = 900 + Math.random()*700;
+      d.animate([
+        {transform:"translateY(0) rotate(0deg)", opacity:1},
+        {transform:"translateY(180px) rotate("+(360+Math.random()*360)+"deg)", opacity:0}
+      ], {duration:dur, easing:"cubic-bezier(.3,.7,.5,1)", delay: i*22});
+      setTimeout(function(){ if(d.parentNode) d.parentNode.removeChild(d); }, dur + i*22 + 60);
+    })(i);
+  }
+}
+
+/* ====================== navegação ====================== */
+function mostra(id){
+  ["tela-inicio","tela-arena","tela-jogo","tela-fim"].forEach(function(t){
+    document.getElementById(t).classList.toggle("on", t === id);
+  });
+  window.scrollTo(0,0);
+  var sl = document.getElementById("selo"); if(sl){ sl.classList.remove("on"); }
+  try{ speechSynthesis.cancel(); }catch(e){}
+}
+
+/* ====================== tela inicial ====================== */
+function pintaInicio(){
+  var alvo = document.getElementById("arenas");
+  alvo.innerHTML = "";
+  var domTot = 0, perTot = 0;
+  BANCO.materias.forEach(function(m){
+    var qs = []; m.campeonatos.forEach(function(c){ qs = qs.concat(c.perguntas); });
+    var dom = qs.filter(function(q){ return dominada(q.id); }).length;
+    domTot += dom; perTot += qs.length;
+    var pct = dominio(qs);
+    var b = document.createElement("button");
+    b.className = "arena" + (qs.length ? "" : " trancada");
+    b.style.background = "linear-gradient(135deg,"+m.cor2+","+m.cor+")";
+    b.innerHTML =
+      '<span class="bola">'+bolinha(m.esporte)+'</span>'+
+      '<span class="txt"><span class="nome">'+m.nome+'</span>'+
+      '<span class="esp">'+(qs.length ? "Arena de "+m.esporte+" · "+qs.length+" desafios"
+                                      : "&#128274; Arena de "+m.esporte+" · esperando conteúdo")+'</span>'+
+      (qs.length ? '<span class="medidor"><i style="width:'+pct+'%"></i></span>'+
+                   '<span class="pct">'+pct+"% aprendido · "+dom+" dominados</span>" : "")+
+      '</span>';
+    b.setAttribute("aria-label", m.nome + ", arena de " + m.esporte +
+      (qs.length ? ", " + pct + " por cento dominado" : ", ainda sem perguntas"));
+    if(qs.length) b.addEventListener("click", function(){ abreArena(m); });
+    else b.addEventListener("click", function(){ avisa("Esta arena ainda não tem perguntas. Peça para o papai acrescentar o conteúdo!"); });
+    alvo.appendChild(b);
+  });
+  document.getElementById("tot-dom").textContent = domTot;
+  document.getElementById("tot-per").textContent = perTot;
+  document.getElementById("tot-partidas").textContent = estado.partidas;
+  document.getElementById("btn-som").textContent = "Som: " + (estado.som ? "ligado" : "desligado");
+  var ola = document.getElementById("ola");
+  ola.textContent = estado.nome
+    ? "Bola pra frente, " + estado.nome + "! Escolha sua arena."
+    : "Escolha sua arena e mostre que você é craque!";
+}
+function pedeNome(){
+  if(estado.nome) return;
+  document.getElementById("cx-nome").style.display = "";
+}
+function guardaNome(){
+  var v = (document.getElementById("in-nome").value || "").trim().slice(0,14);
+  estado.nome = v; salvar();
+  document.getElementById("cx-nome").style.display = "none";
+  pintaInicio();
+  if(v) selo("Bem-vindo ao time, " + v + "!");
+}
+function bolinha(esporte){
+  var c = CENAS[esporte] || CENAS.futebol;
+  var o = c.origem || {x:160,y:124};
+  return '<svg viewBox="'+(o.x-20)+' '+(o.y-20)+' 40 40" width="54" height="54" aria-hidden="true">'+c.bola+'</svg>';
+}
+var seloTimer = null;
+function selo(txt){
+  var el = document.getElementById("selo");
+  el.textContent = txt;
+  el.classList.remove("on"); void el.offsetWidth; el.classList.add("on");
+  clearTimeout(seloTimer);
+  seloTimer = setTimeout(function(){ el.classList.remove("on"); }, 2100);
+}
+function avisa(txt){
+  var d = document.createElement("div");
+  d.className = "aviso"; d.textContent = txt;
+  var pai = document.getElementById("tela-inicio");
+  var velho = pai.querySelector(".aviso"); if(velho) velho.remove();
+  pai.insertBefore(d, pai.querySelector(".linha-btns"));
+  setTimeout(function(){ if(d.parentNode) d.remove(); }, 4200);
+}
+
+/* ====================== tela de campeonatos ====================== */
+var materiaAtual = null;
+function abreArena(m){
+  materiaAtual = m;
+  document.getElementById("arena-nome").textContent = m.nome;
+  document.getElementById("arena-sub").textContent = "Arena de " + m.esporte + " — escolha o campeonato";
+  var alvo = document.getElementById("campeonatos");
+  alvo.innerHTML = "";
+  m.campeonatos.forEach(function(c){
+    var dom = c.perguntas.filter(function(q){ return dominada(q.id); }).length;
+    var pct = dominio(c.perguntas);
+    var b = document.createElement("button");
+    b.className = "arena";
+    b.style.background = "linear-gradient(135deg,"+m.cor2+","+m.cor+")";
+    b.innerHTML = '<span class="bola">'+bolinha(m.esporte)+'</span>'+
+      '<span class="txt"><span class="nome">'+c.nome+'</span>'+
+      '<span class="esp">'+c.sub+' · '+c.perguntas.length+' desafios</span>'+
+      '<span class="medidor"><i style="width:'+pct+'%"></i></span>'+
+      '<span class="pct">'+pct+'% aprendido · '+dom+' de '+c.perguntas.length+' dominados</span></span>';
+    b.addEventListener("click", function(){ comeca({tipo:"camp", camp:c, materia:m}); });
+    alvo.appendChild(b);
+  });
+  var tudo = document.createElement("button");
+  tudo.className = "arena";
+  tudo.style.background = "linear-gradient(135deg,#334155,#0f172a)";
+  tudo.innerHTML = '<span class="bola">'+bolinha(m.esporte)+'</span><span class="txt">'+
+    '<span class="nome">Campeonato geral</span>'+
+    '<span class="esp">Tudo misturado, do jeito mais difícil</span></span>';
+  tudo.addEventListener("click", function(){ comeca({tipo:"materia", materia:m}); });
+  alvo.appendChild(tudo);
+  mostra("tela-arena");
+}
+
+/* ====================== seleção das perguntas ====================== */
+var TAM = 8;      // jogadas por partida
+var TETO = 12;    // limite absoluto, contando as repetições de quem errou
+var ESPERA = [1,1,2,3,4];  // quantas partidas até a pergunta voltar, por caixa
+function montaPartida(alvo){
+  var pool = perguntasDe(alvo);
+  var naoDom = pool.filter(function(q){ return !dominada(q.id); });
+  var dom    = pool.filter(function(q){ return dominada(q.id); });
+  var agora = estado.partidas;
+  function prontas(lista){ return lista.filter(function(q){ return (ficha(q.id).prox||0) <= agora; }); }
+  function ordena(lista){
+    return lista.slice().sort(function(a,b){
+      var fa = ficha(a.id), fb = ficha(b.id);
+      if((fa.prox||0) !== (fb.prox||0)) return (fa.prox||0) - (fb.prox||0);
+      if(fa.caixa !== fb.caixa) return fa.caixa - fb.caixa;
+      return (fa.visto||0) - (fb.visto||0);
+    });
+  }
+  naoDom = ordena(prontas(naoDom)).concat(ordena(naoDom.filter(function(q){
+    return (ficha(q.id).prox||0) > agora; })));
+  dom = ordena(prontas(dom));
+  var lista = naoDom.slice(0, TAM);
+  if(lista.length < TAM) lista = lista.concat(dom.slice(0, TAM - lista.length));
+  if(lista.length < TAM) lista = lista.concat(pool.filter(function(q){
+    return lista.indexOf(q) < 0; }).slice(0, TAM - lista.length));
+  // embaralha para não ficar sempre na mesma ordem
+  for(var i = lista.length - 1; i > 0; i--){
+    var j = Math.floor(Math.random()*(i+1)), t = lista[i]; lista[i] = lista[j]; lista[j] = t;
+  }
+  return lista;
+}
+
+/* ====================== partida ====================== */
+var jogo = null;
+function comeca(alvo){
+  var fila = montaPartida(alvo);
+  if(!fila.length){ avisa("Ainda não há perguntas nesta arena."); return; }
+  jogo = { alvo:alvo, fila:fila, i:0, pontos:0, acertos:0, erros:0,
+           total:fila.length, seq:0, errou:[], repetidas:{}, cena:null, respondida:false };
+  var m = alvo.materia;
+  document.documentElement.style.setProperty("--cor", m.cor);
+  document.documentElement.style.setProperty("--cor2", m.cor2);
+  jogo.cena = montaCena(m.esporte, m.cor, m.cor2);
+  document.body.style.background = m.cor;
+  mostra("tela-jogo");
+  toca(somApito);
+  proxima();
+}
+function proxima(){
+  if(jogo.i >= jogo.fila.length){ termina(); return; }
+  var q = jogo.fila[jogo.i];
+  jogo.respondida = false;
+  document.getElementById("chip-pontos").textContent = jogo.pontos;
+  document.getElementById("chip-jogada").textContent = (jogo.i+1) + "/" + jogo.total;
+  document.getElementById("barra-jogo").style.width = Math.round(jogo.i*100/jogo.total) + "%";
+  document.getElementById("etiqueta-q").textContent = jogo.cena.nome.toUpperCase() + " " + (jogo.i+1);
+  var chip = document.getElementById("chip-pontos");
+  chip.classList.toggle("seq", jogo.seq >= 2);
+  chip.textContent = jogo.seq >= 2 ? (jogo.pontos + " · " + jogo.seq + " seguidos") : jogo.pontos;
+  document.getElementById("enunciado").textContent = q.p;
+  var resp = document.getElementById("resposta");
+  resp.className = "resposta"; resp.innerHTML = "";
+  document.getElementById("btn-continuar").style.display = "none";
+  jogo.cena = montaCena(jogo.alvo.materia.esporte, jogo.alvo.materia.cor, jogo.alvo.materia.cor2);
+
+  var ops = document.getElementById("opcoes");
+  ops.innerHTML = "";
+  var letras = ["A","B","C","D"];
+  q.op.forEach(function(texto, k){
+    var b = document.createElement("button");
+    b.className = "op"; b.type = "button";
+    b.innerHTML = '<span class="cam">'+letras[k]+'</span><span>'+escapa(texto)+'</span>';
+    b.addEventListener("click", function(){ responde(q, k, b); });
+    ops.appendChild(b);
+  });
+}
+function escapa(s){ return String(s).replace(/[&<>"]/g, function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]; }); }
+
+function responde(q, k, botao){
+  if(jogo.respondida) return;
+  jogo.respondida = true;
+  var f = ficha(q.id);
+  f.visto = Date.now();
+  var certo = (k === q.r);
+  var botoes = document.getElementById("opcoes").querySelectorAll(".op");
+  for(var i=0;i<botoes.length;i++){ botoes[i].disabled = true; }
+  botoes[q.r].classList.add("certa");
+  var resp = document.getElementById("resposta");
+
+  if(certo){
+    f.seq += 1; f.acertos += 1; f.caixa = Math.min(5, f.caixa + 1);
+    f.prox = estado.partidas + ESPERA[f.caixa - 1];
+    jogo.acertos += 1; jogo.seq += 1;
+    jogo.pontos += 10 + Math.min(10, (jogo.seq - 1) * 3);
+    botao.classList.add("brilho");
+    animaAcerto(jogo.cena); toca(somGol); vibra(40);
+    resp.className = "resposta on bom";
+    resp.innerHTML = "<b>" + jogo.cena.verbo + "</b>" + escapa(q.e || "");
+    if(f.seq === ALVO){ selo("Conteúdo dominado!\n" + (estado.nome ? estado.nome + ", você" : "Você") + " acertou 3 vezes seguidas."); }
+    else if(jogo.seq === 3){ selo("3 seguidos! Você está voando!"); }
+  } else {
+    f.seq = 0; f.erros += 1; f.caixa = 1; f.prox = estado.partidas;
+    jogo.erros += 1; jogo.seq = 0;
+    if(jogo.errou.indexOf(q) < 0) jogo.errou.push(q);
+    botao.classList.add("errada");
+    animaErro(jogo.cena); toca(somErro); vibra([25,60,25]);
+    resp.className = "resposta on ruim";
+    resp.innerHTML = "<b>Quase!</b>A resposta certa é <strong>" + escapa(q.op[q.r]) +
+                     "</strong>. " + escapa(q.e || "") + "<br>Esta volta mais para a frente.";
+    // errou: a pergunta volta UMA vez nesta partida, e a partida nunca passa de TETO jogadas
+    if(!jogo.repetidas[q.id] && jogo.fila.length < TETO){
+      jogo.repetidas[q.id] = true;
+      var pos = Math.min(jogo.fila.length, jogo.i + 3);
+      jogo.fila.splice(pos, 0, q);
+      jogo.total = jogo.fila.length;
+    }
+  }
+  salvar();
+  document.getElementById("chip-pontos").textContent = jogo.pontos;
+  var b = document.getElementById("btn-continuar");
+  b.style.display = "";
+  try{ resp.scrollIntoView({behavior:"smooth", block:"center"}); }catch(e){ resp.scrollIntoView(); }
+  b.textContent = (jogo.i + 1 >= jogo.fila.length) ? "Ver o resultado" : "Continuar";
+  b.focus();
+}
+
+function termina(){
+  var pct = Math.round(jogo.acertos * 100 / Math.max(1, jogo.acertos + jogo.erros));
+  estado.partidas += 1; salvar();
+  var quem = estado.nome ? estado.nome + ", " : "";
+  if(pct >= 40){
+    var nivel = pct >= 90 ? 0 : (pct >= 70 ? 1 : 2);
+    var cores = [["#fde047","#f59e0b","Ouro"],["#e2e8f0","#94a3b8","Prata"],["#fbbf24","#b45309","Bronze"]];
+    var c = cores[nivel];
+    document.getElementById("medalha").innerHTML =
+      '<circle cx="50" cy="50" r="30" fill="'+c[0]+'" stroke="'+c[1]+'" stroke-width="6"/>'+
+      '<path d="M32 22 L24 4 H40 L46 20Z M68 22 L76 4 H60 L54 20Z" fill="#ef4444"/>'+
+      '<text x="50" y="59" font-size="24" text-anchor="middle" fill="'+c[1]+'" font-weight="bold">'+jogo.acertos+'</text>';
+    document.getElementById("fim-titulo").textContent = "Medalha de " + c[2] + "!";
+  } else {
+    document.getElementById("medalha").innerHTML =
+      '<circle cx="50" cy="50" r="30" fill="#fff" stroke="#0f172a" stroke-width="5"/>'+
+      '<path d="M50 30 l15 11 -6 18h-18l-6-18z" fill="#0f172a"/>'+
+      '<path d="M50 30V14M65 41l14-9M59 59l13 14M41 59L28 73M35 41l-14-9" stroke="#0f172a" stroke-width="5" fill="none"/>';
+    document.getElementById("fim-titulo").textContent = "Treino concluído!";
+  }
+  document.getElementById("fim-linha").textContent = pct >= 40
+    ? (jogo.acertos + " acertos · " + jogo.pontos + " pontos · " + pct + "% de aproveitamento")
+    : (quem + "todo craque erra no treino. Estas perguntas voltam na próxima partida — " +
+       "na segunda vez fica bem mais fácil.");
+
+  var cx = document.getElementById("fim-treinar");
+  var ul = document.getElementById("fim-lista");
+  ul.innerHTML = "";
+  if(jogo.errou.length){
+    cx.style.display = "";
+    jogo.errou.slice(0,5).forEach(function(q){
+      var li = document.createElement("li"); li.textContent = q.p; ul.appendChild(li);
+    });
+  } else { cx.style.display = "none"; }
+
+  var pool = perguntasDe(jogo.alvo);
+  var dom = pool.filter(function(q){ return dominada(q.id); }).length;
+  var p = dominio(pool);
+  document.getElementById("fim-medidor").style.width = p + "%";
+  document.getElementById("fim-dominio").textContent =
+    p + "% aprendido · " + dom + " de " + pool.length + " conteúdos já dominados. " +
+    (dom === pool.length ? "Você é o craque deste campeonato!" :
+     "Cada conteúdo vira \u201cdominado\u201d depois de " + ALVO + " acertos seguidos.");
+  toca(somApito);
+  mostra("tela-fim");
+  pintaInicio();
+}
+
+/* ====================== eventos ====================== */
+document.getElementById("btn-continuar").addEventListener("click", function(){
+  jogo.i += 1; proxima();
+});
+document.getElementById("btn-sair").addEventListener("click", function(){
+  document.body.style.background = "#0b3d2e"; pintaInicio(); mostra("tela-inicio");
+  if(jogo && jogo.acertos > 0) avisa("Partida encerrada. Seus " + jogo.acertos + " acertos ficaram salvos.");
+});
+document.getElementById("btn-voltar-inicio").addEventListener("click", function(){
+  pintaInicio(); mostra("tela-inicio");
+});
+document.getElementById("btn-fim-inicio").addEventListener("click", function(){
+  document.body.style.background = "#0b3d2e"; pintaInicio(); mostra("tela-inicio");
+});
+document.getElementById("btn-denovo").addEventListener("click", function(){ comeca(jogo.alvo); });
+document.getElementById("btn-ouvir").addEventListener("click", function(){
+  var q = jogo && jogo.fila[jogo.i];
+  if(!q) return;
+  falar(q.p + ". Opção A: " + q.op[0] + ". Opção B: " + q.op[1] + ". Opção C: " + q.op[2] + ".");
+});
+document.getElementById("btn-som").addEventListener("click", function(){
+  estado.som = !estado.som; salvar();
+  this.textContent = "Som: " + (estado.som ? "ligado" : "desligado");
+  if(estado.som) toca(somApito);
+});
+document.getElementById("btn-nome").addEventListener("click", guardaNome);
+document.getElementById("in-nome").addEventListener("keydown", function(e){
+  if(e.key === "Enter") guardaNome();
+});
+document.getElementById("btn-treino").addEventListener("click", function(){
+  var m = BANCO.materias.filter(function(x){ return x.campeonatos.length; })[0];
+  if(!m){ avisa("Ainda não há conteúdo no jogo."); return; }
+  comeca({tipo:"todas", materia:m});
+});
+
+/* ====================== partida ====================== */
+if(!todasPerguntas.length){
+  document.getElementById("arenas").innerHTML =
+    '<div class="aviso">Não consegui carregar as perguntas. Confira se o arquivo <b>perguntas.js</b> está na mesma pasta do jogo.</div>';
+} else {
+  pintaInicio();
+  setTimeout(pedeNome, 400);
+}
+
+if("serviceWorker" in navigator && location.protocol.indexOf("http") === 0){
+  navigator.serviceWorker.register("sw.js").catch(function(){});
+}
+})();
+</script>
+</body>
+</html>
