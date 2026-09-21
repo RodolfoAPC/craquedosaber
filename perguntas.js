@@ -99,6 +99,86 @@ window.BANCO = {
             {id:"p13-22", p:"Qual destas palavras com ÃO NÃO é aumentativo?", op:["Peixão","Gatão","Caminhão"], r:2, e:"Caminhão não é um caminho grande: é outro objeto."},
             {id:"p13-23", p:"CAMINHO com ÃO vira CAMINHÃO, que é...", op:["Um veículo","Um caminho grande","Uma estrada"], r:0, e:"O ÃO mudou o significado da palavra."},
             {id:"p13-24", p:"Segundo o texto, o jumento sempre foi fundamental para...", op:["Os trabalhos pesados do campo","Correr no circo","Guardar a casa"], r:0, e:"Ele carrega carga e puxa arado: animal de carga e de tração."}
+          ]        },
+        {
+          id: "p14", nome: "Prova de produção textual", sub: "Sexta-feira, 25/09 — os critérios",
+          perguntas: [
+            {id:"p14-1", p:"O que todo texto precisa ter logo no começo?", op:["Um título","Um desenho","Uma assinatura"], r:0, e:"O título diz do que o texto trata."},
+            {id:"p14-2", p:"O que é um parágrafo?", op:["Um pedaço do texto que começa um pouco para dentro","Uma palavra difícil","O nome do autor"], r:0, e:"Cada parágrafo agrupa uma parte da ideia."},
+            {id:"p14-3", p:"Numa história, os personagens precisam...", op:["Ter nome","Ser invisíveis","Ser sempre três"], r:0, e:"Dar nome aos personagens ajuda quem lê a entender quem é quem."},
+            {id:"p14-4", p:"Um texto com coerência é aquele que...", op:["Faz sentido do começo ao fim","Tem muitas palavras","É bem colorido"], r:0, e:"As partes combinam umas com as outras."},
+            {id:"p14-5", p:"Por que a letra precisa ser legível?", op:["Para as outras pessoas conseguirem ler","Para ficar bonita","Para gastar menos lápis"], r:0, e:"Texto que ninguém lê não cumpre o papel dele."},
+            {id:"p14-6", p:"O que é organizar o espaço da folha?", op:["Escrever nas linhas, com margem e sem apertar tudo","Escrever bem pequeno","Encher a folha toda"], r:0, e:"Margem, linha e espaço entre as palavras."},
+            {id:"p14-7", p:"Toda frase começa com letra...", op:["Maiúscula","Minúscula","Colorida"], r:0, e:"E termina com ponto final."},
+            {id:"p14-8", p:"Qual sinal encerra uma frase que faz uma pergunta?", op:["Ponto de interrogação","Vírgula","Dois-pontos"], r:0, e:"A frase que pergunta termina com ?"},
+            {id:"p14-9", p:"Antes de entregar o texto, o que é bom fazer?", op:["Reler para conferir","Dobrar a folha","Apagar o título"], r:0, e:"A releitura pega erro e frase que não ficou clara."},
+            {id:"p14-10", p:"Uma história costuma ter...", op:["Começo, meio e fim","Só o fim","Apenas o título"], r:0, e:"Apresenta, desenvolve e termina."}
+          ]
+        }
+      ]
+    },
+    {
+      id: "ingles", nome: "Inglês", esporte: "tênis", cor: "#0f766e", cor2: "#2dd4bf",
+      campeonatos: [
+        {
+          id: "i01", nome: "Unit 3 — Move your body", sub: "Prova de terça, 22/09 — Body, Sports, Music",
+          perguntas: [
+            {id:"i01-1", p:"Como se diz CABEÇA em inglês?", op:["HEAD","HAND","HAIR"], r:0, e:"HEAD = cabeça."},
+            {id:"i01-2", p:"Como se diz OLHOS em inglês?", op:["EARS","EYES","NOSE"], r:1, e:"EYES = olhos."},
+            {id:"i01-3", p:"Como se diz BOCA em inglês?", op:["MOUTH","NOSE","EARS"], r:0, e:"MOUTH = boca."},
+            {id:"i01-4", p:"E ORELHAS, como se diz?", op:["EYES","EARS","ARMS"], r:1, e:"EARS = orelhas."},
+            {id:"i01-5", p:"O que quer dizer KNEES?", op:["Joelhos","Dedos","Pés"], r:0, e:"KNEES = joelhos."},
+            {id:"i01-6", p:"O que quer dizer TOES?", op:["Dedos do pé","Dedos da mão","Ombros"], r:0, e:"TOES são os dedos do pé; FINGERS, os da mão."},
+            {id:"i01-7", p:"E FINGERS?", op:["Dedos da mão","Joelhos","Pernas"], r:0, e:"FINGERS = dedos da mão."},
+            {id:"i01-8", p:"O que quer dizer SHOULDERS?", op:["Ombros","Cotovelos","Costas"], r:0, e:"Da música: head, shoulders, knees and toes."},
+            {id:"i01-9", p:"Como se diz PERNAS em inglês?", op:["LEGS","ARMS","FEET"], r:0, e:"LEGS = pernas."},
+            {id:"i01-10", p:"Complete a música: HEAD, SHOULDERS, KNEES AND ...", op:["TOES","NOSE","EYES"], r:0, e:"Head, shoulders, knees and toes."},
+            {id:"i01-11", p:"O que o comando TOUCH YOUR TOES pede para você fazer?", op:["Tocar os dedos do pé","Levantar a cabeça","Bater palmas"], r:0, e:"TOUCH = tocar."},
+            {id:"i01-12", p:"E BEND YOUR KNEES?", op:["Dobrar os joelhos","Esticar os braços","Sentar no chão"], r:0, e:"BEND = dobrar."},
+            {id:"i01-13", p:"Como se diz FUTEBOL em inglês?", op:["SOCCER","SURFING","SWIMMING"], r:0, e:"SOCCER = futebol."},
+            {id:"i01-14", p:"O que quer dizer SWIMMING?", op:["Natação","Ciclismo","Surfe"], r:0, e:"SWIMMING = natação."},
+            {id:"i01-15", p:"O que quer dizer CYCLING?", op:["Ciclismo","Corrida","Tênis"], r:0, e:"CYCLING = andar de bicicleta."},
+            {id:"i01-16", p:"Como se diz VÔLEI em inglês?", op:["VOLLEYBALL","BASKETBALL","BASEBALL"], r:0, e:"VOLLEYBALL = vôlei."},
+            {id:"i01-17", p:"Qual destes é um TEAM SPORT (esporte de time)?", op:["BASKETBALL","SURFING","SWIMMING"], r:0, e:"Basquete se joga em time; surfe e natação são individuais."},
+            {id:"i01-18", p:"Qual destes é um INDIVIDUAL SPORT?", op:["SURFING","SOCCER","VOLLEYBALL"], r:0, e:"No surfe cada um compete sozinho."},
+            {id:"i01-19", p:"A bola laranja, que quica, é de qual esporte?", op:["BASKETBALL","TENNIS","SOCCER"], r:0, e:"Orange ball = basketball."},
+            {id:"i01-20", p:"Raquete e bolinha verde: que esporte é?", op:["TENNIS","VOLLEYBALL","CYCLING"], r:0, e:"Racket + small ball = tennis."},
+            {id:"i01-21", p:"O que quer dizer MUSIC?", op:["Música","Dança","Filme"], r:0, e:"MUSIC = música."},
+            {id:"i01-22", p:"Qual destes é um MUSIC STYLE brasileiro que aparece no livro?", op:["SAMBA","ROCK","CLASSICAL"], r:0, e:"Samba, rock, reggae, country e classical são os estilos da unidade."},
+            {id:"i01-23", p:"Na música do livro, MOM LOVES ...", op:["ROCK","SAMBA","REGGAE"], r:0, e:"Mom loves rock, rock is fun!"},
+            {id:"i01-24", p:"Como se diz VIOLÃO (instrumento) em inglês?", op:["GUITAR","DRUMS","PIANO"], r:0, e:"GUITAR = violão ou guitarra."}
+          ]
+        }
+      ]
+    },
+    {
+      id: "leitura", nome: "Leitura", esporte: "corrida", cor: "#b45309", cor2: "#fbbf24",
+      campeonatos: [
+        {
+          id: "l01", nome: "Pé de Moeda", sub: "Ficha de leitura — prova de terça, 22/09",
+          perguntas: [
+            {id:"l01-1", p:"Quem escreveu o livro \u201cPé de Moeda\u201d?", op:["Ana Neila Torquato","Cibele Santos","Monteiro Lobato"], r:0, e:"Ana Neila Torquato escreveu; Cibele Santos ilustrou."},
+            {id:"l01-2", p:"Qual é o nome do menino da história?", op:["João","Pedro","Arthur"], r:0, e:"O personagem principal é o João."},
+            {id:"l01-3", p:"De quem é o pomar onde João gosta de passear?", op:["Da vovó","Do vizinho","Da escola"], r:0, e:"É o pomar da avó dele."},
+            {id:"l01-4", p:"O que João faz no pomar?", op:["Pega frutas no pé e sente o cheiro e o gosto","Joga bola","Dorme na sombra"], r:0, e:"Ele colhe as frutas direto do pé."},
+            {id:"l01-5", p:"Quem acompanha o João nos passeios?", op:["O cachorro dele","Um gato","Um papagaio"], r:0, e:"O cachorrinho aparece em quase todas as páginas."},
+            {id:"l01-6", p:"Pé de banana é...", op:["Bananeira","Bananal","Bananeiro"], r:0, e:"A vovó ensinou os nomes das árvores frutíferas."},
+            {id:"l01-7", p:"Pé de caju é...", op:["Cajueiro","Cajuzeira","Cajual"], r:0, e:"Pé de caju é cajueiro."},
+            {id:"l01-8", p:"Pé de manga é...", op:["Mangueira","Mangal","Mangueiro"], r:0, e:"Pé de manga é mangueira."},
+            {id:"l01-9", p:"Pé de goiaba é...", op:["Goiabeira","Goiabal","Goiabeiro"], r:0, e:"Pé de goiaba é goiabeira."},
+            {id:"l01-10", p:"O que João encontrou um dia, a caminho do pomar?", op:["Uma moeda","Um brinquedo","Um passarinho"], r:0, e:"\u201cOba! Encontrar uma moeda é sempre divertido!\u201d"},
+            {id:"l01-11", p:"O tamanho da moedinha era...", op:["Menor que a semente do abacate e maior que a do limão","Maior que a mão dele","Do tamanho de uma bola"], r:0, e:"Ela cabia na palma da mão."},
+            {id:"l01-12", p:"Onde João guardou a moeda quando a encontrou?", op:["No bolso","Na mochila","Na terra"], r:0, e:"Colocou no bolso e seguiu aproveitando o pomar."},
+            {id:"l01-13", p:"Vendo as árvores nascerem de sementes pequenas, o que João teve vontade de plantar?", op:["Um pé de moeda","Um pé de limão","Uma horta"], r:0, e:"Ele queria uma árvore que desse moedas."},
+            {id:"l01-14", p:"O que a vovó respondeu ao pedido dele?", op:["Que dinheiro não dá em árvores","Que plantariam no domingo","Que já tinha um pé de moeda"], r:0, e:"Diferentemente das frutas, dinheiro não nasce em árvore."},
+            {id:"l01-15", p:"Para a vovó, o que é preciso fazer para o dinheiro crescer?", op:["Guardar um pouquinho de tudo o que se recebe","Plantar a moeda na terra","Pedir mais moedas"], r:0, e:"Guardar um pouco e fazer boas escolhas."},
+            {id:"l01-16", p:"Além de guardar, o que mais a vovó disse que é importante?", op:["Fazer boas escolhas","Gastar rápido","Contar as moedas todo dia"], r:0, e:"Guardar e escolher bem andam juntos."},
+            {id:"l01-17", p:"O que a vovó deu de presente para o João?", op:["Um cofrinho","Uma bicicleta","Uma muda de árvore"], r:0, e:"Foi a surpresa depois de um passeio."},
+            {id:"l01-18", p:"Como era esse cofrinho?", op:["Uma latinha branca para desenhar","Um porquinho rosa","Uma caixa de madeira"], r:0, e:"Era diferente dos outros: toda branca, para ele decorar."},
+            {id:"l01-19", p:"O que João desenhou no cofrinho?", op:["Uma árvore grande cheia de moedinhas","Um cachorro","Um campo de futebol"], r:0, e:"Ele desenhou o pé de moeda que tinha imaginado."},
+            {id:"l01-20", p:"Quando perguntam o nome do cofrinho, o que João responde?", op:["\u201cEste é o meu pé de moeda!\u201d","\u201cÉ só um cofre.\u201d","\u201cNão tem nome.\u201d"], r:0, e:"É o fecho da história."},
+            {id:"l01-21", p:"Qual é a grande lição do livro?", op:["Guardar um pouco do que se recebe","Que moeda nasce em árvore","Que é melhor gastar tudo"], r:0, e:"É um livro de educação financeira."},
+            {id:"l01-22", p:"A vovó acha que a imaginação do João é...", op:["Uma coisa boa","Uma bobagem","Um problema"], r:0, e:"\u201cA imaginação é uma coisa boa\u201d, disse ela."}
           ]
         }
       ]
@@ -129,12 +209,34 @@ window.BANCO = {
             {id:"m01-18", p:"Numa cesta de basquete valendo 2 pontos, 3 cestas dão quantos pontos?", op:["5","6","9"], r:1, e:"3 vezes 2 = 6 pontos."},
             {id:"m01-19", p:"Qual é o antecessor do 40? (o que vem antes)", op:["41","39","30"], r:1, e:"Antes do 40 vem o 39."},
             {id:"m01-20", p:"Quanto é 100 - 50?", op:["50","40","150"], r:0, e:"Metade de 100 é 50."}
+          ]        },
+        {
+          id: "m02", nome: "Unidade 3 — Compreendendo o número", sub: "Prova de quarta, 23/09",
+          perguntas: [
+            {id:"m02-1", p:"Tinha 8 bolinhas de gude e ganhei mais 6. Fiquei com quantas?", op:["14","12","15"], r:0, e:"8 + 6 = 14."},
+            {id:"m02-2", p:"Tinha 12 figurinhas e perdi 5. Com quantas fiquei?", op:["7","8","17"], r:0, e:"12 - 5 = 7."},
+            {id:"m02-3", p:"Numa caixa há 10 lápis e noutra 7. Quantos lápis ao todo?", op:["17","3","70"], r:0, e:"10 + 7 = 17."},
+            {id:"m02-4", p:"São 9 crianças na roda e 4 vão embora. Quantas ficam?", op:["5","6","13"], r:0, e:"9 - 4 = 5."},
+            {id:"m02-5", p:"Para descobrir quanto sobrou, qual conta a gente faz?", op:["Subtração","Adição","Nenhuma"], r:0, e:"Sobrar, perder e tirar pedem subtração."},
+            {id:"m02-6", p:"Para descobrir o total juntando dois grupos, qual conta usamos?", op:["Adição","Subtração","Divisão"], r:0, e:"Juntar é somar."},
+            {id:"m02-7", p:"Numa sacola só com bolas azuis, tirar uma bola azul é...", op:["Certo","Impossível","Talvez"], r:0, e:"Se só há azuis, sai azul com certeza."},
+            {id:"m02-8", p:"Nessa mesma sacola só de bolas azuis, tirar uma bola vermelha é...", op:["Impossível","Certo","Provável"], r:0, e:"Não existe bola vermelha lá dentro."},
+            {id:"m02-9", p:"Numa sacola com 9 bolas amarelas e 1 verde, é mais provável tirar...", op:["Amarela","Verde","Tanto faz"], r:0, e:"Há muito mais amarelas."},
+            {id:"m02-10", p:"Jogando uma moeda para o alto, dá cara ou coroa...", op:["Com a mesma chance","Sempre cara","Sempre coroa"], r:0, e:"São duas possibilidades iguais."},
+            {id:"m02-11", p:"O Sol nascer amanhã de manhã é um acontecimento...", op:["Certo","Impossível","Pouco provável"], r:0, e:"Acontece todos os dias."},
+            {id:"m02-12", p:"Um jumento voar é um acontecimento...", op:["Impossível","Provável","Certo"], r:0, e:"Não pode acontecer."},
+            {id:"m02-13", p:"Com que instrumento medimos o comprimento de uma mesa?", op:["Régua ou fita métrica","Balança","Relógio"], r:0, e:"Comprimento se mede com régua, trena ou fita."},
+            {id:"m02-14", p:"Para saber quanto uma fruta pesa, usamos...", op:["A balança","A régua","O termômetro"], r:0, e:"Massa se mede na balança."},
+            {id:"m02-15", p:"Para medir quanto tempo dura o recreio, usamos...", op:["O relógio","A régua","A balança"], r:0, e:"Tempo se mede com relógio."},
+            {id:"m02-16", p:"Qual é maior: 1 metro ou 1 centímetro?", op:["1 metro","1 centímetro","São iguais"], r:0, e:"Um metro tem 100 centímetros."},
+            {id:"m02-17", p:"O que cabe dentro de uma garrafa é a...", op:["Capacidade","Altura","Massa"], r:0, e:"Capacidade se mede em litros e mililitros."},
+            {id:"m02-18", p:"Para medir o comprimento da sala com os pés, cada pessoa acha um número diferente. Por quê?", op:["Porque o pé de cada um tem um tamanho","Porque a sala muda","Porque contaram errado"], r:0, e:"Por isso existem medidas padronizadas, como o metro."}
           ]
         }
       ]
     },
     {
-      id: "ciencias", nome: "Ciências", esporte: "vôlei", cor: "#0e7490", cor2: "#22d3ee",
+      id: "ciencias", nome: "Natureza e Sociedade", esporte: "vôlei", cor: "#0e7490", cor2: "#22d3ee",
       campeonatos: [
         {
           id: "c01", nome: "Seres vivos e o corpo", sub: "Plantas, animais e saúde",
@@ -159,6 +261,28 @@ window.BANCO = {
             {id:"c01-18", p:"A borboleta, antes de voar, é uma...", op:["Lagarta","Minhoca","Aranha"], r:0, e:"A lagarta vira casulo e depois borboleta."},
             {id:"c01-19", p:"Onde os peixes respiram?", op:["Na água, pelas guelras","No ar, pelo nariz","Não respiram"], r:0, e:"As guelras pegam o oxigênio da água."},
             {id:"c01-20", p:"Por que não devemos desperdiçar água?", op:["Porque água limpa é preciosa","Porque a água acaba no domingo","Porque molha o chão"], r:0, e:"Água doce e limpa é pouca no planeta."}
+          ]        },
+        {
+          id: "n02", nome: "Unidade 3 — As pessoas e o trabalho", sub: "Prova de quinta, 24/09",
+          perguntas: [
+            {id:"n02-1", p:"Quem cuida da saúde dos dentes?", op:["O dentista","O pediatra","O veterinário"], r:0, e:"Dentista cuida dos dentes."},
+            {id:"n02-2", p:"Quem trata dos animais?", op:["O veterinário","O agricultor","O carteiro"], r:0, e:"Veterinário é o médico dos animais."},
+            {id:"n02-3", p:"Quem constrói casas e prédios?", op:["O pedreiro","O padeiro","O motorista"], r:0, e:"Pedreiro levanta paredes e constrói."},
+            {id:"n02-4", p:"Quem faz o pão que comemos no café?", op:["O padeiro","O pedreiro","O pintor"], r:0, e:"Padeiro trabalha na padaria."},
+            {id:"n02-5", p:"Quem apaga incêndios e ajuda em emergências?", op:["O bombeiro","O carteiro","O professor"], r:0, e:"Bombeiro socorre em emergências."},
+            {id:"n02-6", p:"Quem planta e colhe os alimentos?", op:["O agricultor","O dentista","O piloto"], r:0, e:"O agricultor trabalha na lavoura."},
+            {id:"n02-7", p:"Todo trabalho merece...", op:["Respeito","Nota","Aplausos"], r:0, e:"Toda profissão é importante para a comunidade."},
+            {id:"n02-8", p:"Qual destes é um objeto de uso na cozinha?", op:["A panela","A vassoura","O travesseiro"], r:0, e:"Panela serve para cozinhar."},
+            {id:"n02-9", p:"Qual objeto usamos para nos proteger da chuva?", op:["O guarda-chuva","O garfo","A tesoura"], r:0, e:"Guarda-chuva protege da chuva."},
+            {id:"n02-10", p:"Antes da geladeira, como as pessoas conservavam alimentos?", op:["Salgando e secando","Congelando","Num micro-ondas"], r:0, e:"Sal e sol conservavam a comida."},
+            {id:"n02-11", p:"A vassoura serve para...", op:["Varrer","Cozinhar","Escrever"], r:0, e:"Cada objeto tem uma função."},
+            {id:"n02-12", p:"Os objetos que usamos hoje...", op:["Mudaram com o tempo","Sempre foram assim","Nunca vão mudar"], r:0, e:"A tecnologia transforma os objetos."},
+            {id:"n02-13", p:"De onde vem a madeira usada nos móveis?", op:["Das árvores","Das pedras","Do plástico"], r:0, e:"Madeira é matéria-prima que vem da árvore."},
+            {id:"n02-14", p:"O que é matéria-prima?", op:["O material com que o objeto é feito","O nome da fábrica","O preço do objeto"], r:0, e:"Madeira, barro, algodão e metal são matérias-primas."},
+            {id:"n02-15", p:"O papel é feito a partir de...", op:["Árvores","Areia","Leite"], r:0, e:"A celulose da madeira vira papel."},
+            {id:"n02-16", p:"Onde muitos objetos são fabricados em grande quantidade?", op:["Na fábrica","Na escola","No hospital"], r:0, e:"A fábrica produz em série."},
+            {id:"n02-17", p:"Um objeto feito à mão, um de cada vez, é chamado de...", op:["Artesanal","Industrial","Automático"], r:0, e:"O artesão faz peça por peça."},
+            {id:"n02-18", p:"Por que é bom reaproveitar objetos em vez de jogar fora?", op:["Para produzir menos lixo","Para encher a casa","Porque é proibido comprar"], r:0, e:"Reaproveitar poupa matéria-prima e reduz lixo."}
           ]
         }
       ]

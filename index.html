@@ -342,6 +342,36 @@ var CENAS = {
       '<path d="M160 115 l7 5 -2.7 8.4h-8.6L153 120z" fill="#0f172a"/></g>',
     origem:{x:160,y:124}, alvo:{x:160,y:58}, verbo:"GOL!", verboErro:"Defendeu!", nome:"pênalti"
   },
+  "tênis": {
+    fundo:'<rect width="100%" height="100%" fill="url(#g)"/>'+
+      '<path d="M104 140 L66 24 H254 L216 140 Z" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.65)" stroke-width="2.5"/>'+
+      '<path d="M160 24V140M78 58H242M86 92H234" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>'+
+      '<g><rect x="219" y="30" width="14" height="22" rx="6" fill="#fda4af"/><circle cx="226" cy="24" r="6.5" fill="#f8d9b5"/>'+
+        '<rect x="232" y="33" width="12" height="5" rx="2.5" fill="#fda4af"/></g>'+
+      '<rect x="84" y="88" width="152" height="18" fill="rgba(255,255,255,.2)" stroke="#fff" stroke-width="2.5"/>'+
+      '<path d="M108 88v18M132 88v18M156 88v18M188 88v18M212 88v18" stroke="rgba(255,255,255,.5)" stroke-width="1.4"/>',
+    guarda:'<g id="guarda"></g>',
+    bola:'<g id="bola"><circle cx="160" cy="126" r="11" fill="#d9f99d" stroke="#4d7c0f" stroke-width="2.5"/>'+
+      '<path d="M151 121c7 4 11 10 11 16M169 121c-7 4-11 10-11 16" stroke="#4d7c0f" stroke-width="2" fill="none"/></g>',
+    origem:{x:160,y:126}, alvo:{x:160,y:44}, verbo:"ACE!", verboErro:"Na rede!", nome:"rebatida"
+  },
+  corrida: {
+    fundo:'<rect width="100%" height="100%" fill="url(#g)"/>'+
+      '<path d="M0 46H320M0 70H320M0 94H320M0 118H320" stroke="rgba(255,255,255,.35)" stroke-width="2"/>'+
+      '<rect x="0" y="26" width="320" height="14" fill="rgba(255,255,255,.9)"/>'+
+      '<path d="M0 26h20v14H0zM40 26h20v14H40zM80 26h20v14H80zM120 26h20v14h-20zM160 26h20v14h-20zM200 26h20v14h-20zM240 26h20v14h-20zM280 26h20v14h-20z" fill="#1e293b"/>'+
+      '<text x="160" y="20" font-size="11" text-anchor="middle" fill="#fff" font-weight="bold" letter-spacing="2">CHEGADA</text>',
+    guarda:'<g id="guarda"></g>',
+    bola:'<g id="bola">'+
+      '<rect x="155" y="132" width="5" height="10" rx="2.5" fill="#1e293b"/>'+
+      '<rect x="162" y="132" width="5" height="10" rx="2.5" fill="#1e293b"/>'+
+      '<rect x="154" y="116" width="14" height="18" rx="6" fill="#f97316"/>'+
+      '<rect x="145" y="119" width="11" height="5" rx="2.5" fill="#f97316"/>'+
+      '<rect x="166" y="119" width="11" height="5" rx="2.5" fill="#f97316"/>'+
+      '<circle cx="161" cy="110" r="7" fill="#f8d9b5"/>'+
+      '<path d="M154 108a7 7 0 0 1 14 0z" fill="#1e293b"/></g>',
+    origem:{x:161,y:124}, alvo:{x:161,y:40}, verbo:"CHEGOU EM 1º!", verboErro:"Tropeçou!", nome:"corrida"
+  },
   basquete: {
     fundo:'<rect width="100%" height="100%" fill="url(#g)"/>'+
       '<rect x="112" y="14" width="96" height="58" rx="4" fill="rgba(255,255,255,.14)" stroke="rgba(255,255,255,.75)" stroke-width="3"/>'+
@@ -1157,9 +1187,18 @@ document.getElementById("in-nome").addEventListener("keydown", function(e){
   if(e.key === "Enter") guardaNome();
 });
 document.getElementById("btn-treino").addEventListener("click", function(){
-  var m = BANCO.materias.filter(function(x){ return x.campeonatos.length; })[0];
-  if(!m){ avisa("Ainda não há conteúdo no jogo."); return; }
-  comeca({tipo:"todas", materia:m});
+  // treina a matéria mais atrasada, para a cena do esporte combinar com as perguntas
+  var melhor = null, maior = -1;
+  BANCO.materias.forEach(function(m){
+    var qs = []; m.campeonatos.forEach(function(c){ qs = qs.concat(c.perguntas); });
+    if(!qs.length) return;
+    var devendo = qs.filter(function(q){
+      return !dominada(q.id) && (ficha(q.id).prox || 0) <= estado.partidas;
+    }).length;
+    if(devendo > maior){ maior = devendo; melhor = m; }
+  });
+  if(!melhor){ avisa("Ainda não há conteúdo no jogo."); return; }
+  comeca({tipo:"materia", materia:melhor});
 });
 
 /* ====================== partida ====================== */
