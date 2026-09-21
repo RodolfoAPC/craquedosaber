@@ -314,15 +314,22 @@ var CENAS = {
     fundo:'<rect width="100%" height="100%" fill="url(#g)"/>'+
       '<path d="M0 118 H320" stroke="rgba(255,255,255,.45)" stroke-width="2"/>'+
       '<circle cx="160" cy="118" r="26" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="2"/>'+
-      '<rect x="96" y="26" width="128" height="62" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="3"/>'+
+      '<g id="rede" opacity=".45"><path d="M112 26V88M128 26V88M144 26V88M176 26V88M192 26V88M208 26V88M96 42H224M96 58H224M96 74H224" stroke="#fff" stroke-width="1" fill="none"/></g>'+
+      '<rect x="96" y="26" width="128" height="62" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="3"/>'+
       '<path d="M96 26 L106 16 H214 L224 26" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.55)" stroke-width="2"/>',
-    guarda:'<g id="guarda"><rect x="150" y="44" width="20" height="30" rx="7" fill="#fbbf24"/>'+
-      '<circle cx="160" cy="38" r="9" fill="#f8d9b5"/>'+
-      '<rect x="136" y="47" width="14" height="7" rx="3.5" fill="#fbbf24"/>'+
-      '<rect x="170" y="47" width="14" height="7" rx="3.5" fill="#fbbf24"/></g>',
+    guarda:'<g id="guarda">'+
+      '<rect x="152" y="66" width="6" height="12" rx="3" fill="#1e293b"/>'+
+      '<rect x="162" y="66" width="6" height="12" rx="3" fill="#1e293b"/>'+
+      '<rect x="151" y="43" width="18" height="27" rx="7" fill="#fbbf24"/>'+
+      '<rect x="133" y="46" width="20" height="7" rx="3.5" fill="#fbbf24"/>'+
+      '<rect x="167" y="46" width="20" height="7" rx="3.5" fill="#fbbf24"/>'+
+      '<circle cx="132" cy="49.5" r="5.2" fill="#f8fafc" stroke="#0f172a" stroke-width="1.6"/>'+
+      '<circle cx="188" cy="49.5" r="5.2" fill="#f8fafc" stroke="#0f172a" stroke-width="1.6"/>'+
+      '<circle cx="160" cy="36" r="8.5" fill="#f8d9b5"/>'+
+      '<path d="M151.5 34a8.5 8.5 0 0 1 17 0z" fill="#1e293b"/></g>',
     bola:'<g id="bola"><circle cx="160" cy="124" r="13" fill="#fff" stroke="#0f172a" stroke-width="2.5"/>'+
       '<path d="M160 115 l7 5 -2.7 8.4h-8.6L153 120z" fill="#0f172a"/></g>',
-    origem:{x:160,y:124}, alvo:{x:160,y:58}, verbo:"GOL!", nome:"pênalti"
+    origem:{x:160,y:124}, alvo:{x:160,y:58}, verbo:"GOL!", verboErro:"Defendeu!", nome:"pênalti"
   },
   basquete: {
     fundo:'<rect width="100%" height="100%" fill="url(#g)"/>'+
@@ -333,7 +340,7 @@ var CENAS = {
     guarda:'<g id="guarda"></g>',
     bola:'<g id="bola"><circle cx="160" cy="124" r="13" fill="#f97316" stroke="#7c2d12" stroke-width="2.5"/>'+
       '<path d="M147 124h26M160 111v26M150 115c7 6 7 12 0 18M170 115c-7 6-7 12 0 18" stroke="#7c2d12" stroke-width="2" fill="none"/></g>',
-    origem:{x:160,y:124}, alvo:{x:160,y:70}, verbo:"CESTA!", nome:"arremesso"
+    origem:{x:160,y:124}, alvo:{x:160,y:70}, verbo:"CESTA!", verboErro:"Bateu no aro!", nome:"arremesso"
   },
   "vôlei": {
     fundo:'<rect width="100%" height="100%" fill="url(#g)"/>'+
@@ -344,7 +351,7 @@ var CENAS = {
     guarda:'<g id="guarda"></g>',
     bola:'<g id="bola"><circle cx="160" cy="124" r="13" fill="#fff" stroke="#0369a1" stroke-width="2.5"/>'+
       '<path d="M149 118c9 3 15 10 17 19M171 118c-9 3-15 10-17 19M150 130c7-5 15-6 21-3" stroke="#0369a1" stroke-width="2" fill="none"/></g>',
-    origem:{x:160,y:124}, alvo:{x:160,y:46}, verbo:"PONTO!", nome:"saque"
+    origem:{x:160,y:124}, alvo:{x:160,y:46}, verbo:"PONTO!", verboErro:"Na rede!", nome:"saque"
   },
   queimada: {
     fundo:'<rect width="100%" height="100%" fill="url(#g)"/>'+
@@ -354,7 +361,7 @@ var CENAS = {
     guarda:'<g id="guarda"></g>',
     bola:'<g id="bola"><circle cx="90" cy="112" r="13" fill="#fde047" stroke="#a16207" stroke-width="2.5"/>'+
       '<path d="M80 108c7 4 13 4 20 0M82 118c7 3 13 3 18 0" stroke="#a16207" stroke-width="2" fill="none"/></g>',
-    origem:{x:90,y:112}, alvo:{x:231,y:58}, verbo:"QUEIMOU!", nome:"arremesso"
+    origem:{x:90,y:112}, alvo:{x:231,y:58}, verbo:"QUEIMOU!", verboErro:"Passou longe!", nome:"arremesso"
   }
 };
 function montaCena(esporte, cor, cor2){
@@ -369,26 +376,93 @@ function montaCena(esporte, cor, cor2){
    '</svg><div class="torcida" id="torcida"></div>';
   return c;
 }
-function animaAcerto(cena){
-  var bola = document.getElementById("bola");
-  if(bola){
-    var o = cena.origem || {x:160,y:124};
-    var dx = cena.alvo.x - o.x, dy = cena.alvo.y - o.y;
-    bola.style.transition = "transform .55s cubic-bezier(.2,.9,.3,1)";
-    bola.style.transform = "translate("+dx+"px,"+dy+"px) scale(.82) rotate(300deg)";
+function elAnima(el, quadros, ms, atraso, curva){
+  if(!el) return;
+  try{
+    el.animate(quadros, { duration: ms, delay: atraso || 0, fill: "forwards",
+      easing: curva || "cubic-bezier(.25,.8,.35,1)" });
+  }catch(e){                       // navegador sem Web Animations: vai direto ao quadro final
+    el.style.transition = "transform " + ms + "ms ease";
+    el.style.transform = quadros[quadros.length-1].transform || "";
   }
-  var g = document.getElementById("guarda");
-  if(g){ g.style.transition="transform .4s ease"; g.style.transform="translate(-34px,6px) rotate(-18deg)"; }
+}
+function temGoleiro(g){ return !!(g && g.childNodes && g.childNodes.length); }
+function preparaGiro(el){ el.style.transformBox = "fill-box"; el.style.transformOrigin = "50% 92%"; }
+/* sem isto o rotate/scale gira em torno do canto 0,0 do SVG e joga a bola para fora da tela */
+function preparaBola(el){ if(el){ el.style.transformBox = "fill-box"; el.style.transformOrigin = "50% 50%"; } }
+
+/* ACERTOU: a bola vai para um canto, o goleiro mergulha para o outro e não alcança. */
+function animaAcerto(cena){
+  var bola = document.querySelector("#cena #bola");
+  var g    = document.querySelector("#cena #guarda");
+  var rede = document.querySelector("#cena #rede");
+  var o = cena.origem || {x:160,y:124}, a = cena.alvo;
+  var lado = Math.random() < .5 ? -1 : 1;          // para onde a bola vai
+  var comGoleiro = temGoleiro(g);
+  var fx = a.x + (comGoleiro ? lado * 42 : 0), fy = a.y;
+  var dx = fx - o.x, dy = fy - o.y;
+
+  preparaBola(bola);
+  elAnima(bola, [
+    { transform:"translate(0,0) rotate(0deg)" },
+    { transform:"translate("+(dx*.55)+"px,"+(dy*.62 - 10)+"px) rotate("+(lado*210)+"deg) scale(.93)", offset:.55 },
+    { transform:"translate("+dx+"px,"+dy+"px) rotate("+(lado*430)+"deg) scale(.8)" }
+  ], 520);
+
+  if(comGoleiro){
+    preparaGiro(g);
+    elAnima(g, [                                    // mergulha para o lado errado
+      { transform:"translate(0,0) rotate(0deg)" },
+      { transform:"translate("+(-lado*16)+"px,-5px) rotate("+(-lado*24)+"deg)", offset:.35 },
+      { transform:"translate("+(-lado*40)+"px,9px) rotate("+(-lado*70)+"deg)" }
+    ], 450, 70);
+  }
+  if(rede){
+    setTimeout(function(){                          // a rede balança quando a bola entra
+      elAnima(rede, [
+        { transform:"translate(0,0)" },
+        { transform:"translate("+(lado*3)+"px,4px)", offset:.3 },
+        { transform:"translate("+(-lado*2)+"px,2px)", offset:.62 },
+        { transform:"translate(0,0)" }
+      ], 430, 0, "ease-out");
+    }, 470);
+  }
   confete();
 }
+
+/* ERROU: o goleiro mergulha para o mesmo lado da bola e defende. */
 function animaErro(cena){
-  var bola = document.getElementById("bola");
-  if(bola){
-    bola.style.transition = "transform .5s ease";
-    bola.style.transform = "translate(-46px,-24px) rotate(-120deg)";
+  var bola = document.querySelector("#cena #bola");
+  var g    = document.querySelector("#cena #guarda");
+  var o = cena.origem || {x:160,y:124}, a = cena.alvo;
+  var lado = Math.random() < .5 ? -1 : 1;
+
+  if(temGoleiro(g)){
+    var px = a.x + lado * 30, py = a.y + 4;         // onde as luvas vão encontrar a bola
+    var dx = px - o.x, dy = py - o.y;
+    preparaBola(bola);
+    elAnima(bola, [
+      { transform:"translate(0,0) rotate(0deg)" },
+      { transform:"translate("+(dx*.6)+"px,"+(dy*.66 - 8)+"px) rotate("+(lado*190)+"deg) scale(.95)", offset:.58 },
+      { transform:"translate("+dx+"px,"+dy+"px) rotate("+(lado*300)+"deg) scale(.86)", offset:.82 },
+      { transform:"translate("+dx+"px,"+(dy+5)+"px) rotate("+(lado*300)+"deg) scale(.86)" }
+    ], 560);
+    preparaGiro(g);
+    elAnima(g, [                                    // chega um pouco antes da bola
+      { transform:"translate(0,0) rotate(0deg)" },
+      { transform:"translate("+(lado*14)+"px,-5px) rotate("+(lado*22)+"deg)", offset:.4 },
+      { transform:"translate("+(lado*30)+"px,6px) rotate("+(lado*58)+"deg)", offset:.85 },
+      { transform:"translate("+(lado*30)+"px,9px) rotate("+(lado*58)+"deg)" }
+    ], 470, 40);
+  } else {                                          // esportes sem goleiro: a bola erra o alvo
+    var ex = a.x + lado * 30, ey = a.y + 26;
+    preparaBola(bola);
+    elAnima(bola, [
+      { transform:"translate(0,0) rotate(0deg)" },
+      { transform:"translate("+((ex-o.x)*.6)+"px,"+((a.y-o.y)*.85)+"px) rotate("+(lado*200)+"deg)", offset:.6 },
+      { transform:"translate("+(ex-o.x)+"px,"+(ey-o.y)+"px) rotate("+(lado*320)+"deg) scale(.9)" }
+    ], 560);
   }
-  var g = document.getElementById("guarda");
-  if(g){ g.style.transition="transform .3s ease"; g.style.transform="translate(-10px,-6px) scale(1.08)"; }
 }
 function confete(){
   var t = document.getElementById("torcida"); if(!t) return;
@@ -471,7 +545,8 @@ function guardaNome(){
 function bolinha(esporte){
   var c = CENAS[esporte] || CENAS.futebol;
   var o = c.origem || {x:160,y:124};
-  return '<svg viewBox="'+(o.x-20)+' '+(o.y-20)+' 40 40" width="54" height="54" aria-hidden="true">'+c.bola+'</svg>';
+  return '<svg viewBox="'+(o.x-20)+' '+(o.y-20)+' 40 40" width="54" height="54" aria-hidden="true">'+
+         c.bola.replace('id="bola"','class="bola-icone"')+'</svg>';
 }
 var seloTimer = null;
 function selo(txt){
@@ -631,7 +706,7 @@ function responde(q, k, botao){
     botao.classList.add("errada");
     animaErro(jogo.cena); toca(somErro); vibra([25,60,25]);
     resp.className = "resposta on ruim";
-    resp.innerHTML = "<b>Quase!</b>A resposta certa é <strong>" + escapa(q.op[q.r]) +
+    resp.innerHTML = "<b>" + (jogo.cena.verboErro || "Quase!") + "</b>A resposta certa é <strong>" + escapa(q.op[q.r]) +
                      "</strong>. " + escapa(q.e || "") + "<br>Esta volta mais para a frente.";
     // errou: a pergunta volta UMA vez nesta partida, e a partida nunca passa de TETO jogadas
     if(!jogo.repetidas[q.id] && jogo.fila.length < TETO){
