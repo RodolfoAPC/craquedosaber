@@ -1,6 +1,6 @@
 /* Craque do Saber — service worker
    TROQUE A VERSAO A CADA PUBLICAÇÃO, senão o celular continua com a versão antiga. */
-const VERSAO = "v2";
+const VERSAO = "v3";
 const CACHE = "craque-do-saber-" + VERSAO;
 const ARQUIVOS = [
   "./", "./index.html", "./perguntas.js", "./manifest.webmanifest",

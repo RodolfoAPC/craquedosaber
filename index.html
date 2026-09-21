@@ -135,6 +135,17 @@ button{font-family:inherit;font-size:17px;border:0;cursor:pointer}
   padding:9px 15px;min-height:46px;color:#334155;font-weight:bold;font-size:15px;
   box-shadow:0 3px 0 rgba(0,0,0,.12)}
 .chip.seq{background:#f59e0b;color:#3b2600}
+.dica-chute{position:absolute;left:8px;bottom:8px;color:#fff;font-weight:bold;font-size:13px;
+  background:rgba(0,0,0,.45);border-radius:999px;padding:6px 12px;pointer-events:none}
+.festa{position:fixed;inset:0;z-index:70;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:14px;padding:24px;text-align:center;
+  background:radial-gradient(circle at 50% 35%,#134e3a,#04160f 75%);animation:entra .3s ease both}
+.festa h2{color:#fde047;font-size:clamp(30px,10vw,46px);margin:0;letter-spacing:1px;
+  text-shadow:0 4px 0 rgba(0,0,0,.45);animation:pulsa 1.1s ease-in-out infinite}
+.festa p{color:#e2e8f0;margin:0;font-size:18px;max-width:22em}
+@keyframes pulsa{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.festa .taca{width:150px;height:150px;animation:taca 2.2s ease-in-out infinite}
+@keyframes taca{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-12px) rotate(3deg)}}
 .rodape{color:#86efac;font-size:12px;text-align:center;padding:4px 0 8px}
 .aviso{color:#fff;background:rgba(0,0,0,.3);border-radius:14px;padding:12px;font-size:15px;text-align:center}
 .brilho{animation:brilho .6s ease}
@@ -485,6 +496,298 @@ function confete(){
   }
 }
 
+
+/* ============ cobrança de pênalti (só no futebol) ============ */
+var CANTOS = { "-1":{x:113,y:52,nome:"canto esquerdo"}, "0":{x:160,y:36,nome:"meio, por cima do goleiro"}, "1":{x:207,y:52,nome:"canto direito"} };
+
+function ehFutebol(){ return jogo && jogo.alvo && jogo.alvo.materia.esporte === "futebol"; }
+function svgEl(tag, attrs){
+  var e = document.createElementNS("http://www.w3.org/2000/svg", tag);
+  for(var k in attrs) e.setAttribute(k, attrs[k]);
+  return e;
+}
+function dica(txt){
+  var c = document.getElementById("cena");
+  var v = c.querySelector(".dica-chute");
+  if(!v){ v = document.createElement("div"); v.className = "dica-chute"; c.appendChild(v); }
+  v.textContent = txt;
+}
+function tiraDica(){
+  var v = document.querySelector("#cena .dica-chute");
+  if(v && v.parentNode) v.parentNode.removeChild(v);
+}
+
+function cobranca(certo, q, premio){
+  var svg  = document.querySelector("#cena svg");
+  var bola = document.querySelector("#cena #bola");
+  if(!svg || !bola){ resolveChute(certo, q, "gol", 0, premio); return; }   // rede de segurança
+  var escolhido = null, jaChutou = false;
+
+  if(certo){
+    dica("Escolha o canto");
+    setTimeout(liberaChute, 0);          // o anel na bola já fica visível; o chute só sai com o canto escolhido
+    ["-1","0","1"].forEach(function(c){
+      var p = CANTOS[c];
+      var alvo = svgEl("circle", {cx:p.x, cy:p.y, r:16, fill:"rgba(253,224,71,.42)",
+        stroke:"#fde047", "stroke-width":3, "stroke-dasharray":"6 4", cursor:"pointer",
+        role:"button", tabindex:"0", "aria-label":"Chutar no "+p.nome});
+      alvo.classList.add("alvo-canto");
+      try{ alvo.animate([{opacity:.55},{opacity:1},{opacity:.55}], {duration:1200, iterations:Infinity}); }catch(e){}
+      var escolhe = function(){
+        if(escolhido !== null) return;
+        escolhido = parseInt(c, 10);
+        svg.querySelectorAll(".alvo-canto").forEach(function(o){
+          if(o === alvo){ o.setAttribute("fill","rgba(253,224,71,.85)"); o.setAttribute("stroke-dasharray",""); }
+          else if(o.parentNode) o.parentNode.removeChild(o);
+        });
+        toca(somApito);
+        dica("Agora toque na bola para chutar");
+      };
+      alvo.addEventListener("click", escolhe);
+      alvo.addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" ") escolhe(); });
+      svg.appendChild(alvo);
+    });
+    jogo.destravar = setTimeout(function(){          // não escolheu o canto? o jogo escolhe
+      if(escolhido === null){
+        var alvos = svg.querySelectorAll(".alvo-canto");
+        if(alvos.length) alvos[Math.floor(Math.random()*alvos.length)].dispatchEvent(new Event("click"));
+      }
+    }, 15000);
+  } else {
+    escolhido = [-1,0,1][Math.floor(Math.random()*3)];   // errou: o chute sai a esmo
+    liberaChute();
+  }
+
+  function liberaChute(){
+    dica("Toque na bola para chutar");
+    var o = jogo.cena.origem;
+    var toque = svgEl("circle", {cx:o.x, cy:o.y, r:26, fill:"transparent", cursor:"pointer",
+      role:"button", tabindex:"0", "aria-label":"Chutar a bola"});
+    var anel = svgEl("circle", {cx:o.x, cy:o.y, r:19, fill:"none", stroke:"#fde047", "stroke-width":2.5});
+    try{ anel.animate([{opacity:.9, transform:"scale(1)"},{opacity:0, transform:"scale(1.5)"}],
+      {duration:1100, iterations:Infinity, easing:"ease-out"}); anel.style.transformBox="fill-box"; anel.style.transformOrigin="50% 50%"; }catch(e){}
+    svg.appendChild(anel); svg.appendChild(toque);
+    var chuta = function(){
+      if(jaChutou) return;
+      if(escolhido === null){                       // tocou na bola antes de escolher o canto
+        dica("Escolha o canto primeiro!");
+        svg.querySelectorAll(".alvo-canto").forEach(function(o){
+          try{ o.animate([{transform:"scale(1)"},{transform:"scale(1.35)"},{transform:"scale(1)"}],
+            {duration:520, iterations:2}); o.style.transformBox="fill-box"; o.style.transformOrigin="50% 50%"; }catch(e){}
+        });
+        return;
+      }
+      jaChutou = true;
+      clearTimeout(jogo.destravar);
+      [anel, toque].forEach(function(e){ if(e.parentNode) e.parentNode.removeChild(e); });
+      svg.querySelectorAll(".alvo-canto").forEach(function(o){ if(o.parentNode) o.parentNode.removeChild(o); });
+      tiraDica();
+      executaChute(certo, q, escolhido, premio);
+    };
+    toque.addEventListener("click", chuta);
+    toque.addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" ") chuta(); });
+    // o clique que escolheu o canto ainda está subindo: só ligamos o toque no campo no tique seguinte
+    setTimeout(function(){
+      svg.addEventListener("click", function(e){
+        // o toque que escolhe o canto não pode virar chute no mesmo clique
+        if(e.target && e.target.classList && e.target.classList.contains("alvo-canto")) return;
+        if(!jaChutou) chuta();
+      });
+    }, 0);
+    // rede de segurança: se ninguém tocar, a cobrança sai sozinha e a partida não trava
+    jogo.destravar = setTimeout(function(){ if(!jaChutou) chuta(); }, 15000);
+  }
+}
+
+function executaChute(certo, q, canto, premio){
+  var bola = document.querySelector("#cena #bola");
+  var g    = document.querySelector("#cena #guarda");
+  var rede = document.querySelector("#cena #rede");
+  var o = jogo.cena.origem, alvo = CANTOS[String(canto)];
+  var ultima = (jogo.i + 1 >= jogo.fila.length);
+  var epico  = certo && ultima && jogo.erros === 0;      // gol de final de campeonato
+  var tipo   = certo ? (epico ? "epico" : "gol")
+                     : (Math.random() < .5 ? "defesa" : "trave");
+
+  var destino = { x: alvo.x, y: alvo.y };
+  if(tipo === "trave"){ destino.x = canto === 0 ? 160 : (canto < 0 ? 98 : 222); destino.y = 30; }
+  if(tipo === "defesa"){ destino.x = alvo.x + (canto === 0 ? 0 : (canto < 0 ? 10 : -10)); destino.y = alvo.y + 6; }
+
+  var dx = destino.x - o.x, dy = destino.y - o.y;
+  var giro = (canto >= 0 ? 1 : -1) * (epico ? 720 : 400);
+  var dur  = epico ? 380 : 520;
+
+  preparaBola(bola);
+  if(tipo === "trave"){
+    elAnima(bola, [
+      { transform:"translate(0,0) rotate(0deg)" },
+      { transform:"translate("+dx+"px,"+dy+"px) rotate("+giro+"deg) scale(.85)", offset:.55 },
+      { transform:"translate("+(dx + (canto<0?-30:30))+"px,"+(dy-14)+"px) rotate("+(giro*1.4)+"deg) scale(.7)", offset:.75 },
+      { transform:"translate("+(dx + (canto<0?-60:60))+"px,"+(dy+40)+"px) rotate("+(giro*1.8)+"deg) scale(.6)" }
+    ], 760);
+  } else if(tipo === "epico"){
+    elAnima(bola, [
+      { transform:"translate(0,0) rotate(0deg) scale(1)" },
+      { transform:"translate("+(dx*.6)+"px,"+(dy*.6)+"px) rotate("+(giro*.6)+"deg) scale(1.1)", offset:.55 },
+      { transform:"translate("+dx+"px,"+dy+"px) rotate("+giro+"deg) scale(1.25)", offset:.8 },
+      { transform:"translate("+(dx*1.5)+"px,"+(dy*1.6)+"px) rotate("+(giro*1.3)+"deg) scale(.35)", opacity:0 }
+    ], dur + 240);
+  } else {
+    elAnima(bola, [
+      { transform:"translate(0,0) rotate(0deg)" },
+      { transform:"translate("+(dx*.55)+"px,"+(dy*.62 - 10)+"px) rotate("+(giro*.5)+"deg) scale(.93)", offset:.55 },
+      { transform:"translate("+dx+"px,"+dy+"px) rotate("+giro+"deg) scale("+(tipo==="defesa"?".86":".8")+")" }
+    ], dur);
+  }
+
+  if(temGoleiro(g)){
+    preparaGiro(g);
+    // no gol ele pula para outro lado; na defesa, para cima da bola
+    var ladoG = (tipo === "defesa") ? (canto === 0 ? 0 : canto)
+                                    : (canto === 0 ? (Math.random()<.5?-1:1) : -canto);
+    var desl = (ladoG === 0) ? 0 : ladoG * (tipo === "defesa" ? 30 : 40);
+    var gira = (ladoG === 0) ? 0 : ladoG * (tipo === "defesa" ? 58 : 70);
+    var sobe = (ladoG === 0) ? -14 : 8;
+    elAnima(g, [
+      { transform:"translate(0,0) rotate(0deg)" },
+      { transform:"translate("+(desl*.4)+"px,-5px) rotate("+(gira*.35)+"deg)", offset:.4 },
+      { transform:"translate("+desl+"px,"+sobe+"px) rotate("+gira+"deg)" }
+    ], 440, tipo === "defesa" ? 30 : 70);
+  }
+
+  if(tipo === "gol" || tipo === "epico"){
+    setTimeout(function(){
+      if(rede) elAnima(rede, [
+        { transform:"translate(0,0)" },
+        { transform:"translate("+(canto*3)+"px,4px)", offset:.3 },
+        { transform:"translate("+(-canto*2)+"px,2px)", offset:.62 },
+        { transform:"translate(0,0)" }
+      ], 430, 0, "ease-out");
+      if(tipo === "epico") rasgaRede(alvo);
+    }, dur - 60);
+  }
+
+  toca(tipo === "trave" ? [{f:900,a:0,d:.09,t:"square",v:.16},{f:500,a:.09,d:.2,t:"square",v:.1}]
+       : (certo ? somGol : somErro));
+  vibra(certo ? 40 : [25,60,25]);
+  setTimeout(function(){ resolveChute(certo, q, tipo, dur, premio); }, dur + (tipo==="trave" ? 300 : 220));
+}
+
+function rasgaRede(alvo){
+  var svg = document.querySelector("#cena svg");
+  if(!svg) return;
+  var cx = Math.max(108, Math.min(212, alvo.x)), cy = Math.max(38, alvo.y);
+  // contorno irregular, como um rombo rasgado na rede
+  var pts = [], raios = [12,7,11,6.5,12.5,7.5,11.5,6];
+  for(var i=0;i<raios.length;i++){
+    var ang = (i/raios.length) * Math.PI * 2 - Math.PI/2;
+    pts.push((cx + Math.cos(ang)*raios[i]).toFixed(1) + " " + (cy + Math.sin(ang)*raios[i]*.9).toFixed(1));
+  }
+  var grupo = svgEl("g", {opacity:"0"});
+  grupo.appendChild(svgEl("path", { d:"M"+pts.join("L")+"Z", fill:"#04160f", stroke:"#f8fafc", "stroke-width":"1.6", "stroke-linejoin":"round" }));
+  // fios da rede arrebentados, apontando para fora do buraco
+  [[-1,-1],[1,-1],[-1,.6],[1,.6],[0,-1.3],[0,1.1]].forEach(function(d){
+    grupo.appendChild(svgEl("path", {
+      d:"M"+(cx + d[0]*8).toFixed(1)+" "+(cy + d[1]*7).toFixed(1)+
+        "l"+(d[0]*7).toFixed(1)+" "+(d[1]*6).toFixed(1),
+      stroke:"#f8fafc", "stroke-width":"1.4", "stroke-linecap":"round", fill:"none", opacity:".9" }));
+  });
+  svg.appendChild(grupo);
+  try{
+    grupo.animate([{opacity:0, transform:"scale(.25)"},{opacity:1, transform:"scale(1.2)"},{opacity:1, transform:"scale(1)"}],
+      {duration:420, fill:"forwards", easing:"cubic-bezier(.2,1.4,.4,1)"});
+    grupo.style.transformBox="fill-box"; grupo.style.transformOrigin="50% 50%";
+  }catch(e){ grupo.setAttribute("opacity","1"); }
+}
+function resolveChute(certo, q, tipo, dur, premio){
+  var resp = document.getElementById("resposta");
+  var textos = {
+    gol:   ["GOL!", "O goleiro pulou para o outro lado."],
+    epico: ["GOLAÇO!", "Chute tão forte que furou a rede!"],
+    defesa:["DEFENDEU!", "O goleiro adivinhou o canto."],
+    trave: ["NA TRAVE!", "Por pouco! A bola bateu na trave e saiu."]
+  }[tipo];
+  if(certo){
+    resp.className = "resposta on bom";
+    resp.innerHTML = "<b>" + textos[0] + "</b>" + textos[1] + " " + escapa(q.e || "");
+    if(premio) premio();
+  } else {
+    resp.className = "resposta on ruim";
+    resp.innerHTML = "<b>" + textos[0] + "</b>" + textos[1] +
+      "<br>A resposta certa é <strong>" + escapa(q.op[q.r]) + "</strong>. " + escapa(q.e || "") +
+      "<br>Esta pergunta volta mais para a frente.";
+  }
+  if(tipo === "gol" || tipo === "epico") confete();
+  if(tipo === "epico"){ jogo.campeao = true; setTimeout(festa, 520); }
+  else { liberaContinuar(); }
+}
+
+/* ============ festa de campeão ============ */
+function somTorcida(){
+  if(!estado.som) return; var a = audio(); if(!a) return;
+  try{
+    var seg = 2.6, buf = a.createBuffer(1, a.sampleRate*seg, a.sampleRate), d = buf.getChannelData(0);
+    for(var i=0;i<d.length;i++) d[i] = (Math.random()*2-1) * 0.5;
+    var src = a.createBufferSource(); src.buffer = buf;
+    var f = a.createBiquadFilter(); f.type = "bandpass"; f.frequency.value = 1100; f.Q.value = .8;
+    var gn = a.createGain(); var t = a.currentTime;
+    gn.gain.setValueAtTime(0.0001, t);
+    gn.gain.exponentialRampToValueAtTime(.22, t + .5);
+    gn.gain.setValueAtTime(.22, t + 1.7);
+    gn.gain.exponentialRampToValueAtTime(0.0001, t + seg);
+    src.connect(f); f.connect(gn); gn.connect(a.destination); src.start(t); src.stop(t + seg);
+  }catch(e){}
+  toca([{f:523,a:0,d:.18},{f:659,a:.16,d:.18},{f:784,a:.32,d:.2},
+        {f:1047,a:.5,d:.45},{f:784,a:.95,d:.2},{f:1047,a:1.15,d:.6}]);
+}
+function festa(){
+  var d = document.createElement("div");
+  d.className = "festa";
+  d.setAttribute("role","dialog");
+  d.innerHTML =
+    '<svg class="taca" viewBox="0 0 100 100" aria-hidden="true">'+
+      '<path d="M30 16h40v18a20 20 0 0 1-40 0z" fill="#fde047" stroke="#b45309" stroke-width="3"/>'+
+      '<path d="M30 20H18a12 12 0 0 0 12 12M70 20h12a12 12 0 0 1-12 12" fill="none" stroke="#b45309" stroke-width="4"/>'+
+      '<rect x="45" y="52" width="10" height="16" fill="#b45309"/>'+
+      '<rect x="32" y="68" width="36" height="9" rx="3" fill="#b45309"/>'+
+      '<rect x="26" y="77" width="48" height="10" rx="4" fill="#92400e"/>'+
+      '<text x="50" y="32" font-size="15" text-anchor="middle" fill="#b45309" font-weight="bold">1</text>'+
+    '</svg>'+
+    '<h2>CAMPEÃO!</h2>'+
+    '<p>' + (estado.nome ? estado.nome + ", você" : "Você") +
+      ' acertou <b>todas</b> as perguntas e fez <b>todos</b> os gols. O estádio inteiro está de pé!</p>'+
+    '<button class="btn principal" id="btn-festa" style="min-width:220px">Levantar a taça</button>';
+  document.body.appendChild(d);
+  somTorcida(); vibra([60,50,60,50,140]);
+  chuvaDeConfete(d, 90, 2600);
+  var fecha = function(){ if(d.parentNode) d.parentNode.removeChild(d); liberaContinuar(); };
+  d.querySelector("#btn-festa").addEventListener("click", fecha);
+  d.querySelector("#btn-festa").focus();
+  setTimeout(function(){ if(d.parentNode) chuvaDeConfete(d, 60, 2200); }, 1500);
+}
+function chuvaDeConfete(pai, quantos, dur){
+  var cores = ["#fde047","#f97316","#22d3ee","#f472b6","#a3e635","#ffffff"];
+  for(var i=0;i<quantos;i++){
+    (function(i){
+      var c = document.createElement("i");
+      c.className = "confete";
+      c.style.background = cores[i % cores.length];
+      c.style.left = (Math.random()*100) + "%";
+      c.style.top = "-6%";
+      c.style.opacity = 1;
+      pai.appendChild(c);
+      var t = dur * (.55 + Math.random()*.45), atraso = i * 16;
+      try{
+        c.animate([
+          {transform:"translateY(0) rotate(0deg)", opacity:1},
+          {transform:"translateY("+(window.innerHeight+40)+"px) rotate("+(360+Math.random()*720)+"deg)", opacity:.9}
+        ], {duration:t, delay:atraso, easing:"cubic-bezier(.35,.6,.5,1)"});
+      }catch(e){}
+      setTimeout(function(){ if(c.parentNode) c.parentNode.removeChild(c); }, t + atraso + 80);
+    })(i);
+  }
+}
+
 /* ====================== navegação ====================== */
 function mostra(id){
   ["tela-inicio","tela-arena","tela-jogo","tela-fim"].forEach(function(t){
@@ -647,6 +950,7 @@ function comeca(alvo){
   proxima();
 }
 function proxima(){
+  clearTimeout(jogo.destravar);
   if(jogo.i >= jogo.fila.length){ termina(); return; }
   var q = jogo.fila[jogo.i];
   jogo.respondida = false;
@@ -694,20 +998,35 @@ function responde(q, k, botao){
     jogo.acertos += 1; jogo.seq += 1;
     jogo.pontos += 10 + Math.min(10, (jogo.seq - 1) * 3);
     botao.classList.add("brilho");
-    animaAcerto(jogo.cena); toca(somGol); vibra(40);
-    resp.className = "resposta on bom";
-    resp.innerHTML = "<b>" + jogo.cena.verbo + "</b>" + escapa(q.e || "");
-    if(f.seq === ALVO){ selo("Conteúdo dominado!\n" + (estado.nome ? estado.nome + ", você" : "Você") + " acertou 3 vezes seguidas."); }
-    else if(jogo.seq === 3){ selo("3 seguidos! Você está voando!"); }
+    var premio = function(){
+      if(f.seq === ALVO){ selo("Conteúdo dominado!\n" + (estado.nome ? estado.nome + ", você" : "Você") + " acertou 3 vezes seguidas."); }
+      else if(jogo.seq === 3){ selo("3 seguidos! Você está voando!"); }
+    };
+    if(ehFutebol()){
+      resp.className = "resposta on bom";
+      resp.innerHTML = "<b>Boa resposta!</b>Escolha o canto do gol e depois toque na bola para chutar.";
+      cobranca(true, q, premio);
+    } else {
+      animaAcerto(jogo.cena); toca(somGol); vibra(40);
+      resp.className = "resposta on bom";
+      resp.innerHTML = "<b>" + jogo.cena.verbo + "</b>" + escapa(q.e || "");
+      premio();
+    }
   } else {
     f.seq = 0; f.erros += 1; f.caixa = 1; f.prox = estado.partidas;
     jogo.erros += 1; jogo.seq = 0;
     if(jogo.errou.indexOf(q) < 0) jogo.errou.push(q);
     botao.classList.add("errada");
-    animaErro(jogo.cena); toca(somErro); vibra([25,60,25]);
     resp.className = "resposta on ruim";
-    resp.innerHTML = "<b>" + (jogo.cena.verboErro || "Quase!") + "</b>A resposta certa é <strong>" + escapa(q.op[q.r]) +
-                     "</strong>. " + escapa(q.e || "") + "<br>Esta volta mais para a frente.";
+    if(ehFutebol()){
+      resp.innerHTML = "<b>Quase!</b>A resposta certa é <strong>" + escapa(q.op[q.r]) + "</strong>. " +
+                       escapa(q.e || "") + "<br>Toque na bola para cobrar assim mesmo.";
+      cobranca(false, q, null);
+    } else {
+      animaErro(jogo.cena); toca(somErro); vibra([25,60,25]);
+      resp.innerHTML = "<b>" + (jogo.cena.verboErro || "Quase!") + "</b>A resposta certa é <strong>" + escapa(q.op[q.r]) +
+                       "</strong>. " + escapa(q.e || "") + "<br>Esta volta mais para a frente.";
+    }
     // errou: a pergunta volta UMA vez nesta partida, e a partida nunca passa de TETO jogadas
     if(!jogo.repetidas[q.id] && jogo.fila.length < TETO){
       jogo.repetidas[q.id] = true;
@@ -718,9 +1037,12 @@ function responde(q, k, botao){
   }
   salvar();
   document.getElementById("chip-pontos").textContent = jogo.pontos;
+  try{ resp.scrollIntoView({behavior:"smooth", block:"center"}); }catch(e){ resp.scrollIntoView(); }
+  if(!ehFutebol()) liberaContinuar();
+}
+function liberaContinuar(){
   var b = document.getElementById("btn-continuar");
   b.style.display = "";
-  try{ resp.scrollIntoView({behavior:"smooth", block:"center"}); }catch(e){ resp.scrollIntoView(); }
   b.textContent = (jogo.i + 1 >= jogo.fila.length) ? "Ver o resultado" : "Continuar";
   b.focus();
 }
@@ -729,7 +1051,18 @@ function termina(){
   var pct = Math.round(jogo.acertos * 100 / Math.max(1, jogo.acertos + jogo.erros));
   estado.partidas += 1; salvar();
   var quem = estado.nome ? estado.nome + ", " : "";
-  if(pct >= 40){
+  if(jogo.campeao){
+    document.getElementById("medalha").innerHTML =
+      '<path d="M30 16h40v18a20 20 0 0 1-40 0z" fill="#fde047" stroke="#b45309" stroke-width="3"/>'+
+      '<path d="M30 20H18a12 12 0 0 0 12 12M70 20h12a12 12 0 0 1-12 12" fill="none" stroke="#b45309" stroke-width="4"/>'+
+      '<rect x="45" y="52" width="10" height="16" fill="#b45309"/>'+
+      '<rect x="32" y="68" width="36" height="9" rx="3" fill="#b45309"/>'+
+      '<rect x="26" y="77" width="48" height="10" rx="4" fill="#92400e"/>';
+    document.getElementById("fim-titulo").textContent = "CAMPEÃO!";
+    document.getElementById("fim-linha").textContent =
+      quem + "partida perfeita: " + jogo.acertos + " acertos, " + jogo.acertos +
+      " gols e " + jogo.pontos + " pontos.";
+  } else if(pct >= 40){
     var nivel = pct >= 90 ? 0 : (pct >= 70 ? 1 : 2);
     var cores = [["#fde047","#f59e0b","Ouro"],["#e2e8f0","#94a3b8","Prata"],["#fbbf24","#b45309","Bronze"]];
     var c = cores[nivel];
@@ -745,10 +1078,12 @@ function termina(){
       '<path d="M50 30V14M65 41l14-9M59 59l13 14M41 59L28 73M35 41l-14-9" stroke="#0f172a" stroke-width="5" fill="none"/>';
     document.getElementById("fim-titulo").textContent = "Treino concluído!";
   }
-  document.getElementById("fim-linha").textContent = pct >= 40
-    ? (jogo.acertos + " acertos · " + jogo.pontos + " pontos · " + pct + "% de aproveitamento")
-    : (quem + "todo craque erra no treino. Estas perguntas voltam na próxima partida — " +
-       "na segunda vez fica bem mais fácil.");
+  if(!jogo.campeao){
+    document.getElementById("fim-linha").textContent = pct >= 40
+      ? (jogo.acertos + " acertos · " + jogo.pontos + " pontos · " + pct + "% de aproveitamento")
+      : (quem + "todo craque erra no treino. Estas perguntas voltam na próxima partida — " +
+         "na segunda vez fica bem mais fácil.");
+  }
 
   var cx = document.getElementById("fim-treinar");
   var ul = document.getElementById("fim-lista");
@@ -778,6 +1113,8 @@ document.getElementById("btn-continuar").addEventListener("click", function(){
   jogo.i += 1; proxima();
 });
 document.getElementById("btn-sair").addEventListener("click", function(){
+  clearTimeout(jogo && jogo.destravar);
+  var f = document.querySelector(".festa"); if(f) f.remove();
   document.body.style.background = "#0b3d2e"; pintaInicio(); mostra("tela-inicio");
   if(jogo && jogo.acertos > 0) avisa("Partida encerrada. Seus " + jogo.acertos + " acertos ficaram salvos.");
 });
