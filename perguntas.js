@@ -103,8 +103,95 @@ window.BANCO = {
         }
       ]
     },
-    { id:"matematica", nome:"Matemática", esporte:"basquete", cor:"#c2410c", cor2:"#fb923c", campeonatos:[] },
-    { id:"ciencias",   nome:"Ciências",   esporte:"vôlei",    cor:"#0e7490", cor2:"#22d3ee", campeonatos:[] },
-    { id:"mundo",      nome:"História e Geografia", esporte:"queimada", cor:"#6d28d9", cor2:"#a78bfa", campeonatos:[] }
+    {
+      id: "matematica", nome: "Matemática", esporte: "basquete", cor: "#c2410c", cor2: "#fb923c",
+      campeonatos: [
+        {
+          id: "m01", nome: "Números até 100", sub: "Contar, comparar e juntar",
+          perguntas: [
+            {id:"m01-1", p:"Quanto é 7 + 5?", op:["11","12","13"], r:1, e:"7 + 5 = 12. Conte 5 depois do 7: 8, 9, 10, 11, 12."},
+            {id:"m01-2", p:"Quanto é 15 - 6?", op:["9","8","11"], r:0, e:"15 - 6 = 9."},
+            {id:"m01-3", p:"Qual número é MAIOR?", op:["48","84","18"], r:1, e:"84 tem 8 dezenas; 48 tem só 4 e 18 tem 1."},
+            {id:"m01-4", p:"O número 36 tem quantas dezenas?", op:["3 dezenas e 6 unidades","6 dezenas e 3 unidades","36 dezenas"], r:0, e:"No 36, o 3 vale 30 e o 6 vale 6."},
+            {id:"m01-5", p:"Qual é o número que vem depois do 79?", op:["78","80","90"], r:1, e:"Depois do 79 vem o 80."},
+            {id:"m01-6", p:"Complete a sequência: 2, 4, 6, 8, ...", op:["9","10","12"], r:1, e:"Está pulando de 2 em 2: depois do 8 vem o 10."},
+            {id:"m01-7", p:"Qual destes números é PAR?", op:["7","13","14"], r:2, e:"Números pares terminam em 0, 2, 4, 6 ou 8."},
+            {id:"m01-8", p:"Quanto é o dobro de 8?", op:["16","10","4"], r:0, e:"O dobro é duas vezes: 8 + 8 = 16."},
+            {id:"m01-9", p:"Qual é a metade de 10?", op:["20","5","2"], r:1, e:"Metade é dividir em duas partes iguais: 5 e 5."},
+            {id:"m01-10", p:"Tenho 20 figurinhas e dou 7. Com quantas fico?", op:["13","12","27"], r:0, e:"20 - 7 = 13."},
+            {id:"m01-11", p:"Quanto é 10 + 10 + 10?", op:["30","20","110"], r:0, e:"Três dezenas formam 30."},
+            {id:"m01-12", p:"Quantos lados tem um triângulo?", op:["3","4","5"], r:0, e:"Tri quer dizer três."},
+            {id:"m01-13", p:"Qual figura tem 4 lados iguais?", op:["Quadrado","Triângulo","Círculo"], r:0, e:"O quadrado tem os 4 lados do mesmo tamanho."},
+            {id:"m01-14", p:"Quantos minutos tem uma hora?", op:["30","60","100"], r:1, e:"Uma hora tem 60 minutos."},
+            {id:"m01-15", p:"Quantos dias tem uma semana?", op:["5","7","10"], r:1, e:"Sete dias, de domingo a sábado."},
+            {id:"m01-16", p:"Duas moedas de 50 centavos formam quanto?", op:["1 real","50 centavos","2 reais"], r:0, e:"50 + 50 = 100 centavos, que é 1 real."},
+            {id:"m01-17", p:"Quanto é 9 + 9?", op:["18","19","17"], r:0, e:"9 + 9 = 18."},
+            {id:"m01-18", p:"Numa cesta de basquete valendo 2 pontos, 3 cestas dão quantos pontos?", op:["5","6","9"], r:1, e:"3 vezes 2 = 6 pontos."},
+            {id:"m01-19", p:"Qual é o antecessor do 40? (o que vem antes)", op:["41","39","30"], r:1, e:"Antes do 40 vem o 39."},
+            {id:"m01-20", p:"Quanto é 100 - 50?", op:["50","40","150"], r:0, e:"Metade de 100 é 50."}
+          ]
+        }
+      ]
+    },
+    {
+      id: "ciencias", nome: "Ciências", esporte: "vôlei", cor: "#0e7490", cor2: "#22d3ee",
+      campeonatos: [
+        {
+          id: "c01", nome: "Seres vivos e o corpo", sub: "Plantas, animais e saúde",
+          perguntas: [
+            {id:"c01-1", p:"Qual parte da planta fica embaixo da terra e segura a planta?", op:["A raiz","A folha","A flor"], r:0, e:"A raiz segura a planta e busca água no solo."},
+            {id:"c01-2", p:"Do que a planta precisa para crescer?", op:["Água, luz do sol e ar","Só de água","Só de terra"], r:0, e:"Água, luz e ar — por isso plantinha no escuro não vai bem."},
+            {id:"c01-3", p:"Qual destes NÃO é um ser vivo?", op:["A pedra","O cachorro","A árvore"], r:0, e:"Ser vivo nasce, cresce e morre. Pedra não faz nada disso."},
+            {id:"c01-4", p:"Animais que mamam quando são bebês são chamados de...", op:["Mamíferos","Aves","Peixes"], r:0, e:"Cachorro, gato, vaca e até você são mamíferos."},
+            {id:"c01-5", p:"Que animal põe ovo e tem penas?", op:["A galinha","O jumento","O peixe"], r:0, e:"Aves têm penas, bico e põem ovos."},
+            {id:"c01-6", p:"Com qual sentido sentimos o cheiro das coisas?", op:["Olfato","Paladar","Tato"], r:0, e:"O olfato é o sentido do nariz."},
+            {id:"c01-7", p:"Usamos a língua para sentir o...", op:["Sabor","Cheiro","Som"], r:0, e:"O paladar é o sentido do gosto."},
+            {id:"c01-8", p:"Quando a água fica muito gelada, ela vira...", op:["Gelo","Vapor","Areia"], r:0, e:"No congelador a água vira gelo, que é sólido."},
+            {id:"c01-9", p:"Quando a água ferve, sai uma fumacinha que é o...", op:["Vapor","Gelo","Óleo"], r:0, e:"A água quente evapora e vira vapor."},
+            {id:"c01-10", p:"Por que existe o dia e a noite?", op:["Porque a Terra gira","Porque o Sol dorme","Porque a Lua empurra o Sol"], r:0, e:"A Terra gira; o lado virado para o Sol fica de dia."},
+            {id:"c01-11", p:"Qual destes alimentos é mais saudável para comer todo dia?", op:["Frutas e verduras","Refrigerante","Bala"], r:0, e:"Frutas e verduras dão vitaminas."},
+            {id:"c01-12", p:"Por que devemos lavar as mãos antes de comer?", op:["Para tirar os micróbios","Para ficar com a mão molhada","Porque a comida gosta"], r:0, e:"Lavar as mãos tira germes que dão doença."},
+            {id:"c01-13", p:"Quantos dentes de leite a gente troca na infância?", op:["Todos eles","Nenhum","Só um"], r:0, e:"Os dentes de leite caem e nascem os permanentes."},
+            {id:"c01-14", p:"Para que servem os pulmões?", op:["Para respirar","Para comer","Para pensar"], r:0, e:"Os pulmões pegam o ar que a gente respira."},
+            {id:"c01-15", p:"Que órgão bombeia o sangue pelo corpo?", op:["O coração","O estômago","O cérebro"], r:0, e:"O coração é uma bomba que nunca para."},
+            {id:"c01-16", p:"O que é lixo reciclável?", op:["O que pode virar outra coisa","O que está sujo","O que é pesado"], r:0, e:"Papel, plástico, vidro e metal podem ser reaproveitados."},
+            {id:"c01-17", p:"Qual bicho faz o mel?", op:["A abelha","A formiga","A borboleta"], r:0, e:"As abelhas fazem mel a partir do néctar das flores."},
+            {id:"c01-18", p:"A borboleta, antes de voar, é uma...", op:["Lagarta","Minhoca","Aranha"], r:0, e:"A lagarta vira casulo e depois borboleta."},
+            {id:"c01-19", p:"Onde os peixes respiram?", op:["Na água, pelas guelras","No ar, pelo nariz","Não respiram"], r:0, e:"As guelras pegam o oxigênio da água."},
+            {id:"c01-20", p:"Por que não devemos desperdiçar água?", op:["Porque água limpa é preciosa","Porque a água acaba no domingo","Porque molha o chão"], r:0, e:"Água doce e limpa é pouca no planeta."}
+          ]
+        }
+      ]
+    },
+    {
+      id: "mundo", nome: "História e Geografia", esporte: "queimada", cor: "#6d28d9", cor2: "#a78bfa",
+      campeonatos: [
+        {
+          id: "h01", nome: "Meu lugar no mundo", sub: "Tempo, espaço e convivência",
+          perguntas: [
+            {id:"h01-1", p:"Qual é a capital do Ceará?", op:["Fortaleza","Recife","Natal"], r:0, e:"Fortaleza é a capital do estado do Ceará."},
+            {id:"h01-2", p:"Em que país fica o Ceará?", op:["Brasil","Portugal","Argentina"], r:0, e:"O Ceará é um dos estados do Brasil."},
+            {id:"h01-3", p:"Quais são as cores da bandeira do Brasil?", op:["Verde, amarelo, azul e branco","Vermelho e branco","Azul e laranja"], r:0, e:"Verde, amarelo, azul e branco."},
+            {id:"h01-4", p:"Quantos meses tem um ano?", op:["12","10","7"], r:0, e:"De janeiro a dezembro são 12 meses."},
+            {id:"h01-5", p:"Qual é o primeiro mês do ano?", op:["Janeiro","Março","Dezembro"], r:0, e:"O ano começa em janeiro."},
+            {id:"h01-6", p:"Qual dia vem depois da terça-feira?", op:["Quarta-feira","Segunda-feira","Sábado"], r:0, e:"Segunda, terça, quarta..."},
+            {id:"h01-7", p:"Lugar com muitos prédios, ruas e lojas é a zona...", op:["Urbana","Rural","Marítima"], r:0, e:"Zona urbana é a cidade; rural é o campo."},
+            {id:"h01-8", p:"Na zona rural, é comum encontrar...", op:["Plantações e animais de criação","Shoppings","Metrô"], r:0, e:"No campo há roças, sítios e criação de animais."},
+            {id:"h01-9", p:"Qual destes é um meio de transporte?", op:["O ônibus","A geladeira","O caderno"], r:0, e:"Transporte leva pessoas e cargas de um lugar a outro."},
+            {id:"h01-10", p:"Qual destes é um meio de comunicação?", op:["O telefone","A cadeira","O sapato"], r:0, e:"Comunicação serve para enviar e receber mensagens."},
+            {id:"h01-11", p:"Uma paisagem NATURAL é aquela...", op:["Feita pela natureza","Construída por pessoas","Pintada num quadro"], r:0, e:"Mata, rio e praia são naturais; prédio e ponte são construídos."},
+            {id:"h01-12", p:"O que é uma família?", op:["Pessoas que convivem e cuidam umas das outras","Só pai, mãe e filho","Pessoas que moram na mesma rua"], r:0, e:"Existem muitos tipos de família, e todas valem."},
+            {id:"h01-13", p:"Para que serve uma regra na escola?", op:["Para todos conviverem bem","Para atrapalhar","Para ninguém brincar"], r:0, e:"As regras organizam a convivência."},
+            {id:"h01-14", p:"O que é um ponto de referência?", op:["Algo que ajuda a encontrar um lugar","Um ponto de caneta","Um lugar secreto"], r:0, e:"A padaria da esquina, a igreja, a praça."},
+            {id:"h01-15", p:"Como as pessoas viajavam antes do carro?", op:["A pé, a cavalo ou de carroça","De avião","De metrô"], r:0, e:"Animais e a própria perna eram o transporte."},
+            {id:"h01-16", p:"Onde a gente pode descobrir como era a vida antigamente?", op:["Em fotos, museus e histórias dos mais velhos","Só na internet","Em lugar nenhum"], r:0, e:"Fotos, objetos e a memória das pessoas contam o passado."},
+            {id:"h01-17", p:"Quem trabalha plantando e colhendo alimentos?", op:["O agricultor","O dentista","O piloto"], r:0, e:"O agricultor cuida da lavoura."},
+            {id:"h01-18", p:"O que é um documento de identidade?", op:["Um papel que mostra quem somos","Uma carta","Um bilhete"], r:0, e:"Certidão de nascimento e RG dizem quem a pessoa é."},
+            {id:"h01-19", p:"Qual destes é um direito de toda criança?", op:["Estudar","Trabalhar o dia todo","Dirigir carro"], r:0, e:"Criança tem direito à escola, à saúde e a brincar."},
+            {id:"h01-20", p:"O sertão do Ceará é uma região de clima...", op:["Quente e seco","Frio e com neve","Gelado o ano todo"], r:0, e:"No sertão faz calor e chove pouco."}
+          ]
+        }
+      ]
+    }
   ]
 };
