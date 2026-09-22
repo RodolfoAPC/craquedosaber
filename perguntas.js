@@ -187,7 +187,76 @@ window.BANCO = {
       id: "matematica", nome: "Matemática", esporte: "basquete", cor: "#c2410c", cor2: "#fb923c",
       campeonatos: [
         {
-          id: "m01", nome: "Números até 100", sub: "Contar, comparar e juntar",
+          id: "mat11", nome: "Cap. 11 — Resolver problemas é divertido", sub: "Prova de quarta, 23/09 — Unidade 3",
+          perguntas: [
+            {id:"m11-01", p:"Uma máquina soma +5 em tudo que entra. Se entrar o número 13, o que sai?", op:["17", "18", "19", "15"], r:1, n:1, e:"A máquina sempre soma 5. Então 13 + 5 = 18."},
+            {id:"m11-02", p:"Uma máquina tira −10 de tudo que entra. Se entrar 34, o que sai?", op:["24", "23", "44", "14"], r:0, n:1, e:"Tirar 10 muda só o número das dezenas. De 34, tirando 10, sobra 24."},
+            {id:"m11-03", p:"Entrou 12 na máquina e saiu 22. Qual é a regra dessa máquina?", op:["+2", "+5", "+10", "−10"], r:2, n:2, e:"De 12 para 22 o número cresceu 10. Então a máquina soma 10."},
+            {id:"m11-04", p:"O número passou por duas máquinas: primeiro +10, depois +5. Entrou 20. O que saiu no final?", op:["30", "25", "35", "40"], r:2, n:3, e:"Primeiro 20 + 10 = 30. Depois 30 + 5 = 35."},
+            {id:"m11-05", p:"Quanto é 40 + 6?", op:["46", "44", "10", "406"], r:0, n:1, e:"São 4 dezenas e mais 6 unidades. Isso forma o número 46."},
+            {id:"m11-06", p:"Quanto é 70 + 8?", op:["87", "78", "88", "15"], r:1, n:1, e:"7 dezenas com 8 unidades formam 78."},
+            {id:"m11-07", p:"Quanto é 50 − 7?", op:["44", "42", "43", "47"], r:2, n:2, e:"De 50 até 43 são 7 passos para trás. Uma dica: 50 − 7 é igual a 40 + 3."},
+            {id:"m11-08", p:"Se 20 + 9 = 29, quanto é 60 + 9?", op:["69", "96", "70", "609"], r:0, n:2, e:"Muda só a dezena. Como 20 + 9 dá 29, então 60 + 9 dá 69."},
+            {id:"m11-09", p:"No quadro de números, qual vem logo depois de 79?", op:["78", "80", "89", "90"], r:1, n:1, e:"Depois de 79 a dezena completa e vira 80."},
+            {id:"m11-10", p:"Qual é o antecessor de 60?", op:["61", "50", "59", "70"], r:2, n:1, e:"Antecessor é o número que vem logo antes. Antes de 60 vem 59."},
+            {id:"m11-11", p:"Um número tem 44 como antecessor. Que número é esse?", op:["43", "45", "54", "34"], r:1, n:2, e:"Se 44 vem antes dele, ele é o próximo: 45."},
+            {id:"m11-12", p:"Qual é o sucessor de 89?", op:["88", "90", "99", "98"], r:1, n:2, e:"Sucessor é o que vem logo depois. Depois de 89 vem 90."},
+            {id:"m11-13", p:"Como se escreve com algarismos o número setenta e seis?", op:["67", "76", "706", "17"], r:1, n:1, e:"Setenta são 7 dezenas e seis são 6 unidades. Junto fica 76."},
+            {id:"m11-14", p:"Como se lê o número 94?", op:["quarenta e nove", "noventa e quatro", "nove e quatro", "quatrocentos e nove"], r:1, n:2, e:"O 9 está na casa das dezenas, então vale noventa. Com o 4, lê-se noventa e quatro."},
+            {id:"m11-15", p:"Qual sequência está em ordem decrescente, do maior para o menor?", op:["23, 32, 45, 51", "51, 45, 32, 23", "32, 23, 51, 45", "45, 51, 23, 32"], r:1, n:2, e:"Decrescente é descer. Começa no maior, 51, e vai diminuindo até 23."},
+            {id:"m11-16", p:"As casas de uma rua são numeradas de 10 em 10, começando no 15. Depois do 35, qual é o número da próxima casa?", op:["36", "40", "45", "50"], r:2, n:2, e:"Somando 10 ao 35 chegamos em 45."},
+            {id:"m11-17", p:"Tenho 3 caixas de lápis. Em cada caixa há 10 lápis, e ainda tenho 7 lápis soltos. Quantos lápis tenho ao todo?", op:["30", "37", "27", "17"], r:1, n:3, e:"Três caixas de 10 dão 30 lápis. Somando os 7 soltos, ficam 37."},
+            {id:"m11-18", p:"Um gato tem 4 patas e um pato tem 2 patas. Se há 1 gato e 2 patos juntos, quantas patas há no total?", op:["6", "8", "10", "12"], r:1, n:3, e:"O gato tem 4. Os dois patos têm 2 + 2 = 4. Somando tudo, 4 + 4 = 8 patas."}
+          ]
+        },
+        {
+          id: "mat12", nome: "Cap. 12 — Possibilidades e repartir", sub: "Prova de quarta, 23/09 — Unidade 3",
+          perguntas: [
+            {id:"m12-01", p:"Numa caixa há somente bolinhas vermelhas. Tirando uma bolinha sem olhar, ela será vermelha?", op:["Sempre", "Nunca", "Às vezes", "É impossível saber"], r:0, n:1, e:"Se todas são vermelhas, não tem como sair outra cor. Então sempre será vermelha."},
+            {id:"m12-02", p:"Numa caixa só há botões azuis. Tirando um botão sem olhar, ele será verde?", op:["Sempre", "Nunca", "Às vezes", "Quase sempre"], r:1, n:1, e:"Não existe botão verde dentro da caixa. Então isso nunca acontece."},
+            {id:"m12-03", p:"Numa sacola há 3 balas de morango e 3 balas de uva. Pegando uma bala sem olhar, ela será de uva?", op:["Sempre", "Nunca", "Às vezes", "Duas vezes"], r:2, n:2, e:"Pode sair de uva ou de morango. Como as duas são possíveis, é às vezes."},
+            {id:"m12-04", p:"Numa caixa há 8 tampinhas amarelas e 1 azul. Tirando uma sem olhar, qual cor tem mais chance de sair?", op:["Amarela", "Azul", "As duas têm a mesma chance", "Nenhuma das duas"], r:0, n:2, e:"Há muito mais amarelas do que azuis. Quanto mais tampinhas de uma cor, maior a chance dela sair."},
+            {id:"m12-05", p:"Numa caixa há 5 bolinhas verdes e 5 bolinhas roxas. Qual cor tem mais chance de sair?", op:["Verde", "Roxa", "As duas têm a mesma chance", "Depende do dia"], r:2, n:2, e:"Como há a mesma quantidade das duas cores, as chances são iguais."},
+            {id:"m12-06", p:"Numa caixa há 4 lápis azuis e 2 vermelhos. Se eu tirar 5 lápis sem olhar, posso ter certeza de que pelo menos um será vermelho?", op:["Sim, com certeza", "Não, posso tirar só azuis", "Só se eu tirar 6", "Nunca sairá vermelho"], r:0, n:3, e:"Só existem 4 azuis. Tirando 5 lápis, pelo menos 1 tem que ser vermelho."},
+            {id:"m12-07", p:"Tenho 6 balas para dividir igualmente entre 2 amigos. Quantas balas cada um recebe?", op:["2", "3", "4", "6"], r:1, n:1, e:"Dividindo 6 em 2 partes iguais, cada parte fica com 3 balas."},
+            {id:"m12-08", p:"Quero colocar 12 flores em 4 jarros, com a mesma quantidade em cada um. Quantas flores em cada jarro?", op:["2", "3", "4", "6"], r:1, n:1, e:"12 dividido em 4 partes iguais dá 3 flores em cada jarro."},
+            {id:"m12-09", p:"Tenho 15 adesivos para dividir igualmente entre 3 crianças. Quantos adesivos cada uma recebe?", op:["3", "4", "5", "6"], r:2, n:2, e:"Dando 5 para cada uma das 3 crianças, usamos 5 + 5 + 5 = 15 adesivos."},
+            {id:"m12-10", p:"Tenho 14 biscoitos para dividir igualmente entre 4 pratos. Quantos biscoitos ficam em cada prato e quantos sobram?", op:["3 em cada e sobram 2", "4 em cada e sobra 1", "3 em cada e sobra 1", "2 em cada e sobram 6"], r:0, n:3, e:"Colocando 3 em cada prato usamos 12 biscoitos. Como tínhamos 14, sobram 2."},
+            {id:"m12-11", p:"Cada monstrinho tem 3 olhos. Quantos olhos têm 2 monstrinhos?", op:["5", "6", "8", "9"], r:1, n:1, e:"São dois grupos de 3 olhos: 3 + 3 = 6."},
+            {id:"m12-12", p:"Cada monstrinho tem 3 olhos. Quantos olhos têm 4 monstrinhos?", op:["7", "10", "12", "14"], r:2, n:2, e:"São quatro grupos de 3: 3 + 3 + 3 + 3 = 12 olhos."},
+            {id:"m12-13", p:"Numa caixa cabem 5 ovos. Quantos ovos cabem em 3 caixas iguais?", op:["8", "10", "15", "20"], r:2, n:2, e:"Três caixas de 5: 5 + 5 + 5 = 15 ovos."},
+            {id:"m12-14", p:"Cada aranha tem 8 patas. Quantas patas têm 3 aranhas?", op:["16", "21", "24", "26"], r:2, n:3, e:"8 + 8 = 16, e mais 8 dá 24 patas."},
+            {id:"m12-15", p:"Tenho 2 camisetas, uma azul e uma branca, e 2 bermudas, uma preta e uma verde. Quantas combinações diferentes de roupa posso montar?", op:["2", "3", "4", "6"], r:2, n:3, e:"Cada camiseta combina com as 2 bermudas. São 2 + 2 = 4 combinações."},
+            {id:"m12-16", p:"Oito crianças vão brincar em duplas. Quantas duplas se formam?", op:["2", "3", "4", "8"], r:2, n:2, e:"Cada dupla tem 2 crianças. Com 8 crianças formam-se 4 duplas."},
+            {id:"m12-17", p:"Qual destas frases é sempre verdadeira?", op:["Depois da terça-feira vem a quarta-feira", "Amanhã vai chover", "O ônibus vai atrasar", "Vou tirar uma bola azul da caixa"], r:0, n:2, e:"A ordem dos dias da semana nunca muda. As outras frases podem acontecer ou não."},
+            {id:"m12-18", p:"Numa caixa há 3 bolas azuis, 2 verdes e 1 amarela. Qual cor tem MENOS chance de sair?", op:["Azul", "Verde", "Amarela", "Todas iguais"], r:2, n:3, e:"Só há 1 bola amarela, menos que as outras cores. Por isso ela tem a menor chance."}
+          ]
+        },
+        {
+          id: "mat13", nome: "Cap. 13 — Medidas", sub: "Prova de quarta, 23/09 — Unidade 3",
+          perguntas: [
+            {id:"m13-01", p:"Qual parte do corpo usamos para medir a largura de uma mesa abrindo a mão?", op:["O passo", "O palmo", "O pé", "O braço"], r:1, n:1, e:"O palmo é a distância entre o dedão e o dedo mínimo com a mão aberta."},
+            {id:"m13-02", p:"Para medir o comprimento de uma sala andando em linha reta, qual medida do corpo é mais adequada?", op:["A polegada", "O palmo", "O passo", "O dedo mínimo"], r:2, n:1, e:"O passo é bem maior que o palmo, então serve melhor para distâncias grandes."},
+            {id:"m13-03", p:"Rafael mediu a sala e achou 45 pés. Emília mediu a mesma sala e achou 52 pés. Por que os números foram diferentes?", op:["Um deles errou a conta", "Porque os pés deles têm tamanhos diferentes", "Porque a sala mudou de tamanho", "Porque pé não serve para medir"], r:1, n:2, e:"O pé de cada pessoa tem um tamanho. Quem tem o pé menor precisa de mais passos para medir a mesma sala."},
+            {id:"m13-04", p:"Para medir a sua borracha, qual medida é a mais adequada?", op:["O passo", "A polegada", "O braço", "A sala"], r:1, n:2, e:"A borracha é pequena. A polegada, que é mais ou menos a largura do dedão, cabe bem nesse tamanho."},
+            {id:"m13-05", p:"João mediu a carteira e achou 6 palmos. Depois mediu com um lápis e achou 9 lápis. O que isso mostra?", op:["O lápis é menor que o palmo", "O lápis é maior que o palmo", "A carteira mudou de tamanho", "João errou as duas medidas"], r:0, n:2, e:"Quanto menor a unidade, mais vezes ela cabe. Como precisou de mais lápis do que palmos, o lápis é menor."},
+            {id:"m13-06", p:"Qual símbolo representa o quilograma?", op:["g", "kg", "L", "km"], r:1, n:1, e:"Quilograma se escreve kg. O g sozinho é o grama."},
+            {id:"m13-07", p:"Lucas tem 30 quilogramas e Luísa tem 28 quilogramas. Quem tem maior massa?", op:["Lucas", "Luísa", "Os dois têm a mesma", "Não dá para saber"], r:0, n:2, e:"30 é maior que 28, então Lucas tem maior massa."},
+            {id:"m13-08", p:"Qual destes produtos costuma ser medido em gramas, e não em quilogramas?", op:["Um saco de arroz", "Um pacote de biscoito", "Uma pessoa", "Um cachorro grande"], r:1, n:2, e:"O biscoito é leve, então usamos gramas. Coisas pesadas usam quilogramas."},
+            {id:"m13-09", p:"Lucas tem 30 kg e Luísa tem 28 kg. Quantos quilogramas Lucas tem a mais que Luísa?", op:["1 kg", "2 kg", "3 kg", "58 kg"], r:1, n:3, e:"Para achar a diferença, fazemos 30 − 28 = 2 quilogramas."},
+            {id:"m13-10", p:"Capacidade é a quantidade máxima que um recipiente comporta. Em geral ela é medida em:", op:["metros", "litros", "quilogramas", "horas"], r:1, n:1, e:"Para líquidos usamos o litro. Metro mede comprimento e quilograma mede massa."},
+            {id:"m13-11", p:"Qual destes recipientes tem a maior capacidade?", op:["Uma colher", "Um copo", "Uma garrafa de 2 litros", "Uma tampinha"], r:2, n:2, e:"A garrafa de 2 litros cabe muito mais líquido que colher, copo ou tampinha."},
+            {id:"m13-12", p:"Uma jarra tem 2 litros de suco. Cada copo leva 1 litro. Quantos copos dá para encher?", op:["1", "2", "3", "4"], r:1, n:3, e:"Se cada copo leva 1 litro e há 2 litros, dá para encher 2 copos."},
+            {id:"m13-13", p:"Quantos dias tem uma semana?", op:["5", "6", "7", "12"], r:2, n:1, e:"A semana tem 7 dias, de domingo a sábado."},
+            {id:"m13-14", p:"Quantos meses tem um ano?", op:["7", "10", "12", "24"], r:2, n:1, e:"O ano tem 12 meses, de janeiro a dezembro."},
+            {id:"m13-15", p:"Qual é o mês que vem logo depois de agosto?", op:["julho", "setembro", "outubro", "novembro"], r:1, n:2, e:"A ordem é julho, agosto, setembro. Depois de agosto vem setembro."},
+            {id:"m13-16", p:"Hoje é quinta-feira. Que dia da semana será daqui a 3 dias?", op:["sábado", "domingo", "segunda-feira", "sexta-feira"], r:1, n:3, e:"Contando a partir de quinta: sexta é 1, sábado é 2, domingo é 3."},
+            {id:"m13-17", p:"Um algoritmo é:", op:["um tipo de número", "um conjunto de passos em ordem para resolver algo", "um instrumento de medida", "um dia do calendário"], r:1, n:2, e:"Algoritmo é uma receita: passos na ordem certa para realizar uma tarefa."},
+            {id:"m13-18", p:"Para guardar os brinquedos, qual passo deve vir PRIMEIRO?", op:["Fechar a caixa", "Recolher os brinquedos do chão", "Guardar a caixa no armário", "Colar a etiqueta na caixa"], r:1, n:3, e:"Não dá para fechar nem guardar a caixa antes de recolher os brinquedos. Recolher é o primeiro passo."}
+          ]
+        },
+        {
+          id: "m01", nome: "Treino extra — números até 100", sub: "Fora do roteiro da prova",
           perguntas: [
             {id:"m01-1", p:"Quanto é 7 + 5?", op:["11","12","13"], r:1, e:"7 + 5 = 12. Conte 5 depois do 7: 8, 9, 10, 11, 12."},
             {id:"m01-2", p:"Quanto é 15 - 6?", op:["9","8","11"], r:0, e:"15 - 6 = 9."},
@@ -209,30 +278,7 @@ window.BANCO = {
             {id:"m01-18", p:"Numa cesta de basquete valendo 2 pontos, 3 cestas dão quantos pontos?", op:["5","6","9"], r:1, e:"3 vezes 2 = 6 pontos."},
             {id:"m01-19", p:"Qual é o antecessor do 40? (o que vem antes)", op:["41","39","30"], r:1, e:"Antes do 40 vem o 39."},
             {id:"m01-20", p:"Quanto é 100 - 50?", op:["50","40","150"], r:0, e:"Metade de 100 é 50."}
-          ]        },
-        {
-          id: "m02", nome: "Unidade 3 — Compreendendo o número", sub: "Prova de quarta, 23/09",
-          perguntas: [
-            {id:"m02-1", p:"Tinha 8 bolinhas de gude e ganhei mais 6. Fiquei com quantas?", op:["14","12","15"], r:0, e:"8 + 6 = 14."},
-            {id:"m02-2", p:"Tinha 12 figurinhas e perdi 5. Com quantas fiquei?", op:["7","8","17"], r:0, e:"12 - 5 = 7."},
-            {id:"m02-3", p:"Numa caixa há 10 lápis e noutra 7. Quantos lápis ao todo?", op:["17","3","70"], r:0, e:"10 + 7 = 17."},
-            {id:"m02-4", p:"São 9 crianças na roda e 4 vão embora. Quantas ficam?", op:["5","6","13"], r:0, e:"9 - 4 = 5."},
-            {id:"m02-5", p:"Para descobrir quanto sobrou, qual conta a gente faz?", op:["Subtração","Adição","Nenhuma"], r:0, e:"Sobrar, perder e tirar pedem subtração."},
-            {id:"m02-6", p:"Para descobrir o total juntando dois grupos, qual conta usamos?", op:["Adição","Subtração","Divisão"], r:0, e:"Juntar é somar."},
-            {id:"m02-7", p:"Numa sacola só com bolas azuis, tirar uma bola azul é...", op:["Certo","Impossível","Talvez"], r:0, e:"Se só há azuis, sai azul com certeza."},
-            {id:"m02-8", p:"Nessa mesma sacola só de bolas azuis, tirar uma bola vermelha é...", op:["Impossível","Certo","Provável"], r:0, e:"Não existe bola vermelha lá dentro."},
-            {id:"m02-9", p:"Numa sacola com 9 bolas amarelas e 1 verde, é mais provável tirar...", op:["Amarela","Verde","Tanto faz"], r:0, e:"Há muito mais amarelas."},
-            {id:"m02-10", p:"Jogando uma moeda para o alto, dá cara ou coroa...", op:["Com a mesma chance","Sempre cara","Sempre coroa"], r:0, e:"São duas possibilidades iguais."},
-            {id:"m02-11", p:"O Sol nascer amanhã de manhã é um acontecimento...", op:["Certo","Impossível","Pouco provável"], r:0, e:"Acontece todos os dias."},
-            {id:"m02-12", p:"Um jumento voar é um acontecimento...", op:["Impossível","Provável","Certo"], r:0, e:"Não pode acontecer."},
-            {id:"m02-13", p:"Com que instrumento medimos o comprimento de uma mesa?", op:["Régua ou fita métrica","Balança","Relógio"], r:0, e:"Comprimento se mede com régua, trena ou fita."},
-            {id:"m02-14", p:"Para saber quanto uma fruta pesa, usamos...", op:["A balança","A régua","O termômetro"], r:0, e:"Massa se mede na balança."},
-            {id:"m02-15", p:"Para medir quanto tempo dura o recreio, usamos...", op:["O relógio","A régua","A balança"], r:0, e:"Tempo se mede com relógio."},
-            {id:"m02-16", p:"Qual é maior: 1 metro ou 1 centímetro?", op:["1 metro","1 centímetro","São iguais"], r:0, e:"Um metro tem 100 centímetros."},
-            {id:"m02-17", p:"O que cabe dentro de uma garrafa é a...", op:["Capacidade","Altura","Massa"], r:0, e:"Capacidade se mede em litros e mililitros."},
-            {id:"m02-18", p:"Para medir o comprimento da sala com os pés, cada pessoa acha um número diferente. Por quê?", op:["Porque o pé de cada um tem um tamanho","Porque a sala muda","Porque contaram errado"], r:0, e:"Por isso existem medidas padronizadas, como o metro."}
-          ]
-        }
+          ]        }
       ]
     },
     {

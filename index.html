@@ -957,6 +957,7 @@ function montaPartida(alvo){
       var fa = ficha(a.id), fb = ficha(b.id);
       if((fa.prox||0) !== (fb.prox||0)) return (fa.prox||0) - (fb.prox||0);
       if(fa.caixa !== fb.caixa) return fa.caixa - fb.caixa;
+      if((a.n||2) !== (b.n||2)) return (a.n||2) - (b.n||2);   // nível 1 antes do 3
       return (fa.visto||0) - (fb.visto||0);
     });
   }
@@ -1174,8 +1175,11 @@ document.getElementById("btn-denovo").addEventListener("click", function(){ come
 document.getElementById("btn-ouvir").addEventListener("click", function(){
   var q = jogo && jogo.fila[jogo.i];
   if(!q) return;
-  var ord = (jogo.ordem && jogo.ordem.length === q.op.length) ? jogo.ordem : [0,1,2];
-  falar(q.p + ". Opção A: " + q.op[ord[0]] + ". Opção B: " + q.op[ord[1]] + ". Opção C: " + q.op[ord[2]] + ".");
+  var ord = (jogo.ordem && jogo.ordem.length === q.op.length) ? jogo.ordem
+            : q.op.map(function(_, i){ return i; });
+  var letras = ["A","B","C","D"], fala = q.p + ".";
+  ord.forEach(function(orig, k){ fala += " Opção " + letras[k] + ": " + q.op[orig] + "."; });
+  falar(fala);
 });
 document.getElementById("btn-som").addEventListener("click", function(){
   estado.som = !estado.som; salvar();
