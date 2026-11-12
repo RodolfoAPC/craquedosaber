@@ -9,7 +9,7 @@
      e    explicação curta mostrada depois da resposta
 */
 window.BANCO = {
-  versao: "2026-09-20",
+  versao: "2026-11-11",
   materias: [
     {
       id: "portugues", nome: "Português", esporte: "futebol", cor: "#15803d", cor2: "#22c55e",
@@ -113,6 +113,101 @@ window.BANCO = {
             {id:"p14-8", p:"Qual sinal encerra uma frase que faz uma pergunta?", op:["Ponto de interrogação","Vírgula","Dois-pontos"], r:0, e:"A frase que pergunta termina com ?"},
             {id:"p14-9", p:"Antes de entregar o texto, o que é bom fazer?", op:["Reler para conferir","Dobrar a folha","Apagar o título"], r:0, e:"A releitura pega erro e frase que não ficou clara."},
             {id:"p14-10", p:"Uma história costuma ter...", op:["Começo, meio e fim","Só o fim","Apenas o título"], r:0, e:"Apresenta, desenvolve e termina."}
+          ]
+        },
+        {
+          id: "pt14", nome: "O jogo já vai começar!", sub: "Capítulo 14 — Amazônia",
+          perguntas: [
+            {id:"pt14-1", p:"O texto \"Amazônia\" informa principalmente sobre...", op:["Onde fica localizada a Amazônia","Os animais e as plantas da Amazônia","A história das cidades do Norte"], r:1, e:"O texto apresenta a fauna e a flora amazônicas."},
+            {id:"pt14-2", p:"De acordo com o texto, a Amazônia chama atenção porque...", op:["Abriga uma quantidade enorme de seres vivos","É um lugar bonito para visitar","Tem muitas cidades grandes"], r:0, e:"É a variedade impressionante de seres vivos que atrai pesquisadores."},
+            {id:"pt14-3", p:"Quantas espécies animais os pesquisadores calculam que existem na Amazônia?", op:["Cerca de 30 mil","Cerca de 300","Cerca de 30 milhões"], r:2, e:"São cerca de 30 milhões de espécies animais."},
+            {id:"pt14-4", p:"Todas essas espécies já foram encontradas e estudadas?", op:["Sim, todas já foram","Não, ainda há muitas a descobrir","Só as aves foram estudadas"], r:1, e:"Ainda há vários bichos desconhecidos e descobertas a fazer no futuro."},
+            {id:"pt14-5", p:"Quais macacos o texto cita como moradores das grandes árvores?", op:["Coatás, cuxiús e barrigudos","Leões e tigres","Cangurus e coalas"], r:0, e:"As grandes árvores amazônicas abrigam coatás, cuxiús e barrigudos."},
+            {id:"pt14-6", p:"Além dos macacos, que outros mamíferos vivem na região?", op:["Elefantes e girafas","Onças, tamanduás, peixes-boi e botos","Ursos e lobos"], r:1, e:"O texto cita onças, tamanduás, peixes-boi e botos."},
+            {id:"pt14-7", p:"Entre os animais que rastejam, o texto cita...", op:["Lagartos, jacarés, tartarugas e serpentes","Cavalos e vacas","Tubarões e baleias"], r:0, e:"São os mais conhecidos entre os que rastejam."},
+            {id:"pt14-8", p:"Que animais vivem tanto na água quanto na terra?", op:["As rãs, os sapos e as pererecas","Só os peixes","Só as aves"], r:0, e:"Rãs, sapos e pererecas vivem nos dois ambientes."},
+            {id:"pt14-9", p:"Quantas espécies de aves já foram descobertas na Amazônia?", op:["Menos de dez","Exatamente cem","Mais de mil"], r:2, e:"Mais de mil espécies, incluindo araras, papagaios, periquitos e tucanos."},
+            {id:"pt14-10", p:"A maior parte das espécies de animais amazônicos é formada por...", op:["Insetos","Macacos","Peixes"], r:0, e:"Adivinhe! São os insetos."},
+            {id:"pt14-11", p:"Que insetos aparecem no texto?", op:["Abelhas e grilos","Besouros, mariposas, formigas e vespas","Apenas formigas"], r:1, e:"Besouros, mariposas, formigas e vespas."},
+            {id:"pt14-12", p:"\"Ficar de queixo caído\" quer dizer ficar...", op:["Com fome","Com sono","Muito surpreso"], r:2, e:"É uma expressão: ficar admirado, impressionado."},
+            {id:"pt14-13", p:"Qual planta é um dos símbolos da Amazônia?", op:["A vitória-régia","A rosa","O girassol"], r:0, e:"A vitória-régia, que boia na água."},
+            {id:"pt14-14", p:"Além da vitória-régia, que plantas o texto cita?", op:["Cactos","Orquídeas e bromélias","Bananeiras"], r:1, e:"Orquídeas e bromélias também são da flora amazônica."},
+            {id:"pt14-15", p:"Quais são hoje as principais ameaças à Amazônia?", op:["A chuva e o vento","O frio","O desmatamento e as queimadas"], r:2, e:"Os dois juntos são as principais ameaças."},
+            {id:"pt14-16", p:"O desmatamento e as queimadas podem causar...", op:["A extinção de espécies animais e vegetais","Mais chuva na floresta","O crescimento da mata"], r:0, e:"Com o desmatamento, os animais perdem abrigo e alimento."},
+            {id:"pt14-17", p:"Em ordem alfabética, qual destas palavras vem primeiro?", op:["Macacos","Araras","Botos"], r:1, e:"A vem antes de B e de M: araras, botos, macacos."},
+            {id:"pt14-18", p:"Na ordem alfabética de BOTOS, MACACOS, PAPAGAIOS e ARARAS, qual fica por último?", op:["Papagaios","Araras","Botos"], r:0, e:"A ordem é: araras, botos, macacos, papagaios."},
+            {id:"pt14-19", p:"Antes das letras P e B, escrevemos...", op:["N","M","Nenhuma das duas"], r:1, e:"Essa é a regra: antes de P e B vem sempre M."},
+            {id:"pt14-20", p:"Complete corretamente: MARI__BONDO", op:["M","N","Nada"], r:0, e:"MARIMBONDO: vem M porque a letra seguinte é B."},
+            {id:"pt14-21", p:"Complete corretamente: SERPE__TE", op:["M","N","Nada"], r:1, e:"SERPENTE: antes de T usa-se N."},
+            {id:"pt14-22", p:"Em CHIMPANZÉ, por que a primeira letra é M e a segunda é N?", op:["Porque M vem antes de P e N vem antes de Z","Porque é mais bonito","Porque são duas palavras"], r:0, e:"CHI-M-PA-N-ZÉ: M antes de P, N antes de Z."},
+            {id:"pt14-23", p:"Como se separam as sílabas de JABUTI?", op:["Jab-u-ti","Ja-bu-ti","Ja-but-i"], r:1, e:"Três sílabas: ja-bu-ti."},
+            {id:"pt14-24", p:"Como se separam as sílabas de CALANGO?", op:["Ca-lan-go","Cal-an-go","Ca-la-ngo"], r:0, e:"Ca-lan-go, três sílabas."},
+            {id:"pt14-25", p:"Quantas sílabas tem a palavra SUCURI?", op:["Duas","Três","Quatro"], r:1, e:"Su-cu-ri: três sílabas."},
+            {id:"pt14-26", p:"As sílabas JU, RI e TI formam o nome de qual ave?", op:["Jaburu","Gavião","Juriti"], r:2, e:"JU-RI-TI, uma avezinha parecida com a rolinha."},
+            {id:"pt14-27", p:"Quantas sílabas tem JACUTINGA?", op:["Quatro","Três","Duas"], r:0, e:"Ja-cu-tin-ga: quatro sílabas."},
+            {id:"pt14-28", p:"No jogo do capítulo, o que era preciso fazer na fase 3?", op:["Escrever as respostas","Só marcar X","Desenhar"], r:0, e:"Na fase 3 as respostas eram escritas. Então, capriche!"}
+          ]
+        },
+        {
+          id: "pt15", nome: "Como é que se aprende?", sub: "Capítulo 15",
+          perguntas: [
+            {id:"pt15-1", p:"Quem escreveu o texto \"Brincar para aprender\"?", op:["Daniel Munduruku","Monteiro Lobato","Maurício de Sousa"], r:0, e:"Daniel Munduruku, do livro \"Catando piolhos, contando histórias\"."},
+            {id:"pt15-2", p:"O texto conta como é a vida em...", op:["Uma cidade grande","Uma aldeia indígena","Um navio"], r:1, e:"O autor conta como se aprende na aldeia."},
+            {id:"pt15-3", p:"Na aldeia, as pessoas acordam...", op:["Ao meio-dia","Bem tarde","Sempre muito cedo"], r:2, e:"Acordar cedo faz parte do jeito deles."},
+            {id:"pt15-4", p:"Por que eles acordam cedo?", op:["Para aproveitar bem o dia e fazer as tarefas","Porque faz frio","Porque não têm cama"], r:0, e:"Para dar conta das tarefas importantes do dia a dia."},
+            {id:"pt15-5", p:"Quais tarefas da aldeia o texto cita?", op:["Lavar carro e varrer a rua","Coletar raízes e frutas, preparar farinha, caçar e pescar","Vender coisas na feira"], r:1, e:"São as tarefas cotidianas descritas no texto."},
+            {id:"pt15-6", p:"Quem faz a maioria dessas atividades?", op:["As crianças","Os adultos","Os visitantes"], r:1, e:"Os adultos fazem, e as crianças observam."},
+            {id:"pt15-7", p:"E o que as crianças fazem enquanto isso?", op:["Observam para aprender corretamente","Dormem","Trabalham igual aos adultos"], r:0, e:"Observar é a forma de aprender na aldeia."},
+            {id:"pt15-8", p:"Segundo os adultos da aldeia, as crianças são...", op:["Adultos em miniatura","Pequenos ajudantes","Crianças completas"], r:2, e:"\"Não somos adultos em miniatura, e sim crianças completas!\""},
+            {id:"pt15-9", p:"Quando um avô ou avó falava, as crianças...", op:["Faziam um respeitoso silêncio","Falavam junto","Saíam correndo"], r:0, e:"Eles falavam e a gente ouvia, em silêncio respeitoso."},
+            {id:"pt15-10", p:"O que o avô respondia quando perguntavam como ouvir os sinais da natureza?", op:["\"Vocês têm que estudar\"","\"Vocês têm que brincar\"","\"Vocês têm que trabalhar\""], r:1, e:"E respondia sorrindo: vocês têm que brincar, meus netos."},
+            {id:"pt15-11", p:"Segundo o texto, a natureza nos revela...", op:["Quem somos e o melhor caminho a seguir","O preço das coisas","A hora do almoço"], r:0, e:"Por isso é preciso estar atento aos sinais dela."},
+            {id:"pt15-12", p:"No poema \"Vai já pra dentro, menino\", o que o menino quer fazer?", op:["Dormir","Brincar","Estudar"], r:1, e:"\"...quando o que eu quero é brincar...\""},
+            {id:"pt15-13", p:"No poema, \"lengalenga\" quer dizer...", op:["Uma conversa repetida, sempre a mesma","Uma música nova","Uma brincadeira de roda"], r:0, e:"É aquela cantilena que se repete sem parar."},
+            {id:"pt15-14", p:"No poema, qual palavra rima com ESTUDAR?", op:["Correr","Brincar","Pular"], r:1, e:"\"Vai já pra dentro estudar\" rima com \"o que eu quero é brincar\"."},
+            {id:"pt15-15", p:"No poema, qual palavra rima com ESTUDO?", op:["Mundo","Tudo","Nada"], r:1, e:"\"aprendo no estudo\" rima com \"preciso saber tudo\"."},
+            {id:"pt15-16", p:"Segundo o poema, para conhecer o mundo basta...", op:["Abrir os olhos e escutar com o ouvido","Ficar quieto no quarto","Dormir cedo"], r:0, e:"\"Basta os olhos abrir, e com o ouvido escutar.\""},
+            {id:"pt15-17", p:"Complete o poema: \"Aprende-se o tempo todo, dentro, fora, pelo...\"", op:["Meio","Começo","Avesso"], r:2, e:"\"...pelo avesso, começando pelo fim, terminando no começo!\""},
+            {id:"pt15-18", p:"Quantas estrofes tem o poema \"Vai já pra dentro, menino\"?", op:["Quatro","Duas","Seis"], r:0, e:"São quatro estrofes de quatro versos cada."},
+            {id:"pt15-19", p:"Qual palavra está escrita corretamente?", op:["Quamisa","Kamisa","Camisa"], r:2, e:"CAMISA se escreve com CA."},
+            {id:"pt15-20", p:"Qual palavra está escrita corretamente?", op:["Quadro","Cadro","Kuadro"], r:0, e:"QUADRO se escreve com QUA."},
+            {id:"pt15-21", p:"Qual palavra está escrita corretamente?", op:["Carto","Quarto","Kuarto"], r:1, e:"QUARTO, com QUA."},
+            {id:"pt15-22", p:"Qual destas palavras tem BR?", op:["Blincar","Brincar","Bincar"], r:1, e:"B-R-INCAR: o R vem logo depois do B."},
+            {id:"pt15-23", p:"Qual destas palavras tem FL?", op:["Frauta","Fauta","Flauta"], r:2, e:"FL-AUTA, com L depois do F."},
+            {id:"pt15-24", p:"A expressão \"cabeça de vento\" se refere a uma pessoa...", op:["Distraída, esquecida","Muito forte","Muito estudiosa"], r:0, e:"É quem vive esquecendo as coisas."}
+          ]
+        },
+        {
+          id: "pt16", nome: "O fantástico mundo do \"Era uma vez\"", sub: "Capítulo 16",
+          perguntas: [
+            {id:"pt16-1", p:"Qual história clássica é recontada no capítulo 16?", op:["Os Três Porquinhos","Chapeuzinho Vermelho","Cinderela"], r:1, e:"A história de Chapeuzinho Vermelho, em uma nova versão."},
+            {id:"pt16-2", p:"Quem é o autor da versão de Chapeuzinho apresentada no livro?", op:["Maurício de Sousa","Monteiro Lobato","Ziraldo"], r:0, e:"É a versão recontada e ilustrada por Maurício de Sousa."},
+            {id:"pt16-3", p:"O que a mãe pediu que Chapeuzinho levasse para a vovó?", op:["Pão e leite","Flores do jardim","Uma cesta com bolo e doces"], r:2, e:"Bolo e doces, porque a vovó estava doente."},
+            {id:"pt16-4", p:"Por que Chapeuzinho foi visitar a vovó?", op:["Porque a vovó estava doente","Porque era aniversário dela","Porque ela ia viajar"], r:0, e:"A vovó estava doente e a mãe mandou a cesta."},
+            {id:"pt16-5", p:"Por onde Chapeuzinho prometeu ir?", op:["Pelo rio","Pela estradinha","Por dentro da floresta"], r:1, e:"Ela prometeu ir pela estradinha que levava à casa da vovó."},
+            {id:"pt16-6", p:"Como Chapeuzinho acabou no meio da floresta?", op:["Distraiu-se com os bichinhos","Fugiu de uma chuva","Perdeu o mapa"], r:0, e:"Ela se distraiu no caminho e, quando viu, estava na floresta."},
+            {id:"pt16-7", p:"O que o lobo sugeriu para Chapeuzinho?", op:["Voltar para casa","Correr bem rápido","Ir pelo caminho das flores"], r:2, e:"Ele disse que o caminho das flores era mais curto — mas não era."},
+            {id:"pt16-8", p:"Por que o lobo sugeriu o caminho das flores?", op:["Porque era mais bonito","Porque era mais longo e ele chegaria primeiro","Porque era mais seguro"], r:1, e:"Era uma armadilha: o caminho era longo e o lobo chegou antes."},
+            {id:"pt16-9", p:"Quem chegou primeiro à casa da vovó?", op:["O lobo","Chapeuzinho","O lenhador"], r:0, e:"O lobo não perdeu tempo e chegou primeiro."},
+            {id:"pt16-10", p:"Onde estava a chave da casa da vovó?", op:["Na janela","Com o carteiro","Debaixo do tapete"], r:2, e:"A vovó disse para puxar a chave debaixo do tapete."},
+            {id:"pt16-11", p:"O que o lobo fez com a vovó?", op:["Trancou no armário","Levou para passear","Convidou para jantar"], r:0, e:"Ele trancou a vovó no armário e se disfarçou."},
+            {id:"pt16-12", p:"Como o lobo se disfarçou?", op:["De lenhador","De vovó, com touca na cabeça","De menina"], r:1, e:"Ficou na cama com a touca, escondido na coberta."},
+            {id:"pt16-13", p:"\"São para te ouvir melhor\" foi a resposta sobre o quê?", op:["Os olhos","A boca","As orelhas"], r:2, e:"Primeiro as orelhas, depois os olhos, por último a boca."},
+            {id:"pt16-14", p:"Qual foi a última pergunta de Chapeuzinho ao lobo?", op:["\"Que boca enorme é essa?\"","\"Que olhos grandes você tem!\"","\"Que orelhas grandes você tem!\""], r:0, e:"E a resposta foi: é para devorar!"},
+            {id:"pt16-15", p:"Quem chamou a atenção ao ouvir os roncos altos do lobo?", op:["A mãe de Chapeuzinho","Um lenhador que passava","Um caçador"], r:1, e:"O ronco alto chamou a atenção do lenhador."},
+            {id:"pt16-16", p:"Na leitura dramatizada, quantos grupos a turma formou?", op:["Três","Dez","Seis"], r:2, e:"Seis grupos, um para cada personagem."},
+            {id:"pt16-17", p:"Quais personagens foram divididos na leitura dramatizada?", op:["Narrador, mãe, Chapeuzinho, lobo, avó e lenhador","Só Chapeuzinho e o lobo","Os três porquinhos"], r:0, e:"Cada grupo leu a parte de um personagem."},
+            {id:"pt16-18", p:"Na música, Chapeuzinho vai pela estradinha levando...", op:["Brinquedos","Doces para a vovozinha","Livros"], r:1, e:"\"Levar estes doces para a vovozinha.\""},
+            {id:"pt16-19", p:"Na música, como é o caminho até a casa da vovó?", op:["Deserto","Cheio de gente","Bem curtinho"], r:0, e:"\"Ela mora longe, o caminho é deserto.\""},
+            {id:"pt16-20", p:"Na música, quem passeia por ali por perto?", op:["A vovó","O lenhador","O Lobo Mau"], r:2, e:"\"E o Lobo Mau passeia por ali por perto.\""},
+            {id:"pt16-21", p:"Para o R ter som forte entre duas vogais, escrevemos...", op:["R","RR","L"], r:1, e:"Como em CARROÇA e CACHORRO: dois erres."},
+            {id:"pt16-22", p:"Qual palavra está escrita corretamente?", op:["Pásaro","Pássaro","Pázaro"], r:1, e:"PÁSSARO se escreve com SS."},
+            {id:"pt16-23", p:"No minidicionário do livro, DÓCIL quer dizer...", op:["Manso, que aprende com facilidade","Muito bravo","Muito rápido"], r:0, e:"Dócil é quem é manso e aprende fácil."},
+            {id:"pt16-24", p:"No minidicionário, LIGEIRO quer dizer...", op:["Lento","Rápido","Pesado"], r:1, e:"Ligeiro é o mesmo que rápido."},
+            {id:"pt16-25", p:"No minidicionário, LIDA quer dizer...", op:["Leitura","Briga","Trabalho"], r:2, e:"A lida é o trabalho do dia a dia."},
+            {id:"pt16-26", p:"No minidicionário, SILVESTRE quer dizer...", op:["Que é da selva, selvagem","Da cidade grande","Do fundo do mar"], r:0, e:"Silvestre é o que vive na mata."},
+            {id:"pt16-27", p:"No minidicionário, MATREIRO quer dizer...", op:["Bobo","Esperto, sabido","Triste"], r:1, e:"Matreiro é o mesmo que esperto, sagaz."},
+            {id:"pt16-28", p:"No minidicionário, PIGMENTO é...", op:["Uma fruta","Um animal","Substância que dá cor"], r:2, e:"O pigmento é o que confere cor às coisas."}
           ]
         }
       ]
